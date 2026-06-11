@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Staci Taylor | Management Instructor</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            navy: '#0F172A',     /* slate-900 */
+                            darkBlue: '#1E293B', /* slate-800 */
+                            gold: '#D97706',     /* amber-600 */
+                            goldHover: '#B45309',/* amber-700 */
+                            lightGold: '#FEF3C7' /* amber-100 */
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .font-serif-academic {
+            font-family: 'Playfair Display', serif;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen">
+
+    <!-- Header / Navigation -->
+    <header class="bg-brand-navy text-white sticky top-0 z-50 shadow-md">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Brand Title -->
+                <div class="flex-shrink-0">
+                    <a href="#" class="text-lg sm:text-xl font-bold font-serif-academic tracking-wide hover:text-amber-400 transition duration-150">
+                        Dr. Staci Taylor
+                    </a>
+                </div>
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex space-x-8 text-sm font-medium">
+                    <a href="#about" class="text-slate-300 hover:text-white hover:border-b-2 hover:border-brand-gold pb-1 transition duration-150">About</a>
+                    <a href="#courses" class="text-slate-300 hover:text-white hover:border-b-2 hover:border-brand-gold pb-1 transition duration-150">Courses</a>
+                    <a href="#resources" class="text-slate-300 hover:text-white hover:border-b-2 hover:border-brand-gold pb-1 transition duration-150">Student Resources</a>
+                    <a href="#contact" class="text-slate-300 hover:text-white hover:border-b-2 hover:border-brand-gold pb-1 transition duration-150">Contact & Hours</a>
+                </nav>
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="p-2 rounded-md hover:bg-slate-800 focus:outline-none" aria-label="Toggle Menu">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Dropdown Nav -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-darkBlue border-t border-slate-700 px-4 py-3 space-y-2">
+            <a href="#about" class="block text-slate-300 hover:text-white py-2 font-medium">About</a>
+            <a href="#courses" class="block text-slate-300 hover:text-white py-2 font-medium">Courses</a>
+            <a href="#resources" class="block text-slate-300 hover:text-white py-2 font-medium">Student Resources</a>
+            <a href="#contact" class="block text-slate-300 hover:text-white py-2 font-medium">Contact & Hours</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-brand-navy to-slate-800 text-white py-16 sm:py-24">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                <!-- Text Details -->
+                <div class="md:col-span-7 space-y-6 text-center md:text-left">
+                    <div class="inline-flex items-center space-x-2 bg-slate-800 border border-slate-700 rounded-full py-1 px-4 text-xs font-semibold uppercase tracking-wider text-amber-400">
+                        <span>McLennan Community College</span>
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight font-serif-academic leading-tight">
+                        Dr. Staci Taylor
+                    </h1>
+                    <p class="text-xl sm:text-2xl text-slate-300 font-light max-w-xl mx-auto md:mx-0">
+                        Management Instructor & Higher Education Leader
+                    </p>
+                    <p class="text-base text-slate-400 max-w-lg mx-auto md:mx-0">
+                        Dedicated to preparing the next generation of business leaders, entrepreneurs, and thinkers through experiential learning, strategic guidance, and real-world application.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 pt-4">
+                        <a href="#courses" class="w-full sm:w-auto text-center px-6 py-3 border border-transparent text-base font-semibold rounded-lg bg-brand-gold text-white hover:bg-brand-goldHover shadow-lg transition duration-150">
+                            Explore Courses
+                        </a>
+                        <a href="#contact" class="w-full sm:w-auto text-center px-6 py-3 border border-slate-600 text-base font-semibold rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition duration-150">
+                            Get In Touch
+                        </a>
+                    </div>
+                <!-- Profile Photo Container -->
+                <div class="md:col-span-5 flex justify-center">
+                    <div class="relative w-64 h-64 sm:w-80 sm:h-80 rounded-full border-4 border-amber-500 shadow-2xl overflow-hidden flex items-center justify-center bg-slate-700">
+                        <img 
+                            src="Generated image (3).jpg" 
+                            alt="Dr. Staci Taylor" 
+                            class="w-full h-full object-cover object-center"
+                            onerror="this.onerror=null; this.src='https://placehold.co/400x400/1e293b/d97706?text=Dr.+Staci+Taylor'"
+                        >
+                        <div class="absolute bottom-4 bg-slate-900/90 text-amber-400 px-4 py-1 rounded-full text-xs font-semibold uppercase tracking-wider border border-amber-500/30">
+                            Waco, Texas
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Widget (Interactive) -->
+    <div class="bg-brand-lightGold/60 border-y border-amber-200 py-6">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <p class="text-xs font-bold uppercase tracking-widest text-brand-gold mb-2">Management Quote of the Day</p>
+            <blockquote id="quote-text" class="text-lg md:text-xl font-serif-academic text-slate-800 italic transition-all duration-300">
+                "Management is doing things right; leadership is doing the right things."
+            </blockquote>
+            <cite id="quote-author" class="block text-sm font-semibold text-slate-600 mt-2 not-italic">
+                — Peter F. Drucker
+            </cite>
+            <button onclick="changeQuote()" class="mt-4 inline-flex items-center text-xs font-semibold text-brand-gold hover:text-brand-goldHover underline focus:outline-none">
+                Next Insight
+                <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <main class="flex-grow max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-20">
+
+        <!-- About Me Section -->
+        <section id="about" class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-7 space-y-6">
+                <h2 class="text-3xl font-bold font-serif-academic text-slate-900 border-b-2 border-brand-gold pb-3 inline-block">
+                    Teaching & Management Philosophy
+                </h2>
+                <p class="text-slate-700 leading-relaxed text-lg">
+                    As a dedicated Management Instructor at <strong>McLennan Community College</strong>, my ultimate objective is to cultivate the organizational, entrepreneurial, and leadership competencies that drive dynamic enterprises. 
+                </p>
+                <p class="text-slate-700 leading-relaxed">
+                    By linking structural management frameworks to contemporary corporate scenarios, I ensure my students step into the business landscape equipped to organize, delegate, strategy-map, and lead team members with clear intent. Every student carries the potential to make a stellar organizational impact.
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-4">
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+                        <div class="text-brand-gold font-bold text-2xl mb-1">Engaged</div>
+                        <p class="text-xs text-slate-500">Interactive lectures & group simulations.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+                        <div class="text-brand-gold font-bold text-2xl mb-1">Practical</div>
+                        <p class="text-xs text-slate-500">Real business case studies analyzed.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+                        <div class="text-brand-gold font-bold text-2xl mb-1">Mentored</div>
+                        <p class="text-xs text-slate-500">Committed support throughout your career.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="lg:col-span-5 bg-white p-8 rounded-2xl shadow-md border border-slate-100 space-y-6">
+                <h3 class="text-xl font-bold font-serif-academic text-brand-navy">Fast Academic Facts</h3>
+                <ul class="space-y-4 text-sm text-slate-600">
+                    <li class="flex items-start">
+                        <span class="text-brand-gold mr-3">✔</span>
+                        <div><strong>Role:</strong> Management Instructor, Business Division</div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-brand-gold mr-3">✔</span>
+                        <div><strong>Institution:</strong> McLennan Community College (MCC)</div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-brand-gold mr-3">✔</span>
+                        <div><strong>Location:</strong> Waco, Texas</div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-brand-gold mr-3">✔</span>
+                        <div><strong>Focus Areas:</strong> Strategic Planning, Leadership Development, Organizational Behavior, Human Resource Management</div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Featured Course Link & Courses Section -->
+        <section id="courses" class="space-y-8">
+            <div class="text-center max-w-2xl mx-auto space-y-3">
+                <h2 class="text-3xl font-bold font-serif-academic text-slate-900">Featured & Current Courses</h2>
+                <p class="text-slate-600">Browse current course offerings at MCC. Access sylabi, schedules, and specific modules below.</p>
+            </div>
+
+            <!-- Spotlight Card (PRINCIPLES OF MANAGEMENT) -->
+            <div class="bg-slate-900 text-white rounded-3xl p-8 md:p-12 shadow-xl border border-slate-800 relative overflow-hidden">
+                <!-- Background decoration element -->
+                <div class="absolute right-0 top-0 w-96 h-96 bg-brand-gold/10 rounded-full blur-3xl pointer-events-none"></div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+                    <div class="lg:col-span-8 space-y-6">
+                        <span class="inline-block bg-brand-gold/20 text-amber-400 border border-brand-gold/30 text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full">
+                            Primary Lecture Course
+                        </span>
+                        <h3 class="text-3xl sm:text-4xl font-extrabold font-serif-academic leading-tight">
+                            BMGT 1327: Principles of Management
+                        </h3>
+                        <p class="text-slate-300 text-base sm:text-lg max-w-2xl">
+                            A foundational exploration of management roles, organizational design, motivational theory, decision-making dynamics, and systemic team supervision. This course builds key competencies for effective contemporary leaders.
+                        </p>
+                        <div class="flex flex-wrap gap-4 text-xs font-medium text-slate-400">
+                            <span class="bg-slate-800 px-3 py-1 rounded-md border border-slate-700">📌 Credit Hours: 3</span>
+                            <span class="bg-slate-800 px-3 py-1 rounded-md border border-slate-700">⚡ Core Business Requirement</span>
+                            <span class="bg-slate-800 px-3 py-1 rounded-md border border-slate-700">🌐 Online & Hybrid Delivery</span>
+                        </div>
+                    </div>
+                    
+                    <div class="lg:col-span-4 flex justify-start lg:justify-end">
+                        <a href="principlesmgmt.html" class="group w-full lg:w-auto inline-flex items-center justify-center text-center bg-brand-gold hover:bg-brand-goldHover text-white text-base font-bold py-4 px-8 rounded-xl shadow-lg hover:shadow-brand-gold/20 transform hover:-translate-y-0.5 transition duration-200">
+                            <span>Go to Course Site</span>
+                            <svg class="w-5 h-5 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Other courses grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Course Card 2 -->
+                <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="text-brand-gold text-xs font-bold uppercase tracking-wider">Business Elective</div>
+                        <h4 class="text-xl font-bold font-serif-academic text-slate-900">HRPO 2301: Human Resources Management</h4>
+                        <p class="text-slate-600 text-sm">
+                            Focuses on the recruitment, selection, orientation, training, appraisal, and compensation of employees within modern legal and diverse frameworks.
+                        </p>
+                    </div>
+                    <div class="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                        <span>Spring & Fall Semesters</span>
+                        <span class="text-slate-400 italic">Syllabus upon request</span>
+                    </div>
+                </div>
+
+                <!-- Course Card 3 -->
+                <div class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between">
+                    <div class="space-y-4">
+                        <div class="text-brand-gold text-xs font-bold uppercase tracking-wider">Leadership Seminar</div>
+                        <h4 class="text-xl font-bold font-serif-academic text-slate-900">BMGT 2309: Leadership & Dynamics</h4>
+                        <p class="text-slate-600 text-sm">
+                            Study of leadership qualities, style patterns, team conflict resolution, and motivational paradigms required of middle and upper management teams.
+                        </p>
+                    </div>
+                    <div class="pt-6 mt-6 border-t border-slate-100 flex items-center justify-between text-xs text-slate-500">
+                        <span>Fall Semester Only</span>
+                        <span class="text-slate-400 italic">Syllabus upon request</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Student Resources Section -->
+        <section id="resources" class="bg-slate-100 rounded-3xl p-8 sm:p-12 space-y-8">
+            <div class="max-w-2xl space-y-2">
+                <h2 class="text-3xl font-bold font-serif-academic text-slate-900">Student Success Hub</h2>
+                <p class="text-slate-600">Quick links to support systems and academic utilities essential for MCC students.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <a href="https://mclennan.brightspace.com" target="_blank" rel="noopener" class="bg-white p-6 rounded-xl hover:shadow-md border border-slate-200 transition duration-150 flex flex-col justify-between group">
+                    <div class="space-y-3">
+                        <div class="w-10 h-10 bg-slate-100 text-brand-navy rounded-lg flex items-center justify-center group-hover:bg-amber-100 group-hover:text-amber-700 transition">
+                            💻
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-sm">Brightspace (LMS)</h4>
+                        <p class="text-xs text-slate-500">Access assignment portals, quizzes, grade tracking, and learning modules.</p>
+                    </div>
+                    <span class="text-xs font-semibold text-brand-gold mt-4 inline-flex items-center group-hover:underline">Visit Portal &rarr;</span>
+                </a>
+
+                <a href="https://www.mclennan.edu/library/" target="_blank" rel="noopener" class="bg-white p-6 rounded-xl hover:shadow-md border border-slate-200 transition duration-150 flex flex-col justify-between group">
+                    <div class="space-y-3">
+                        <div class="w-10 h-10 bg-slate-100 text-brand-navy rounded-lg flex items-center justify-center group-hover:bg-amber-100 group-hover:text-amber-700 transition">
+                            📚
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-sm">MCC Library</h4>
+                        <p class="text-xs text-slate-500">Search online academic databases, find peer-reviewed articles, or reserve study rooms.</p>
+                    </div>
+                    <span class="text-xs font-semibold text-brand-gold mt-4 inline-flex items-center group-hover:underline">Search Library &rarr;</span>
+                </a>
+
+                <a href="https://www.mclennan.edu/bookstore/" target="_blank" rel="noopener" class="bg-white p-6 rounded-xl hover:shadow-md border border-slate-200 transition duration-150 flex flex-col justify-between group">
+                    <div class="space-y-3">
+                        <div class="w-10 h-10 bg-slate-100 text-brand-navy rounded-lg flex items-center justify-center group-hover:bg-amber-100 group-hover:text-amber-700 transition">
+                            🛒
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-sm">MCC Bookstore</h4>
+                        <p class="text-xs text-slate-500">Buy or rent management text books and download course materials.</p>
+                    </div>
+                    <span class="text-xs font-semibold text-brand-gold mt-4 inline-flex items-center group-hover:underline">View Bookstore &rarr;</span>
+                </a>
+
+                <a href="https://www.mclennan.edu/advising/" target="_blank" rel="noopener" class="bg-white p-6 rounded-xl hover:shadow-md border border-slate-200 transition duration-150 flex flex-col justify-between group">
+                    <div class="space-y-3">
+                        <div class="w-10 h-10 bg-slate-100 text-brand-navy rounded-lg flex items-center justify-center group-hover:bg-amber-100 group-hover:text-amber-700 transition">
+                            🗓
+                        </div>
+                        <h4 class="font-bold text-slate-900 text-sm">Advising & Support</h4>
+                        <p class="text-xs text-slate-500">Talk to academic advisors about degree paths, career guidance, and graduation tracking.</p>
+                    </div>
+                    <span class="text-xs font-semibold text-brand-gold mt-4 inline-flex items-center group-hover:underline">Get Advising &rarr;</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Contact, Hours, & Form Section -->
+        <section id="contact" class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            <!-- Contact info card -->
+            <div class="lg:col-span-5 space-y-6">
+                <h2 class="text-3xl font-bold font-serif-academic text-slate-900 border-b-2 border-brand-gold pb-3 inline-block">
+                    Office & Hours
+                </h2>
+                <p class="text-slate-600">
+                    If you are currently enrolled in any courses or looking to join the Business program, please do not hesitate to reach out or drop by my office.
+                </p>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 space-y-4">
+                    <div class="flex items-start">
+                        <span class="text-xl mr-3 mt-0.5">🏢</span>
+                        <div>
+                            <strong class="block text-slate-900">Office Location</strong>
+                            <span class="text-sm text-slate-600">Business & Technology Building, Room 204<br>McLennan Community College, Waco, TX</span>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <span class="text-xl mr-3 mt-0.5">✉</span>
+                        <div>
+                            <strong class="block text-slate-900">Email Address</strong>
+                            <span class="text-sm text-slate-600">staylor@mclennan.edu</span>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <span class="text-xl mr-3 mt-0.5">⏰</span>
+                        <div>
+                            <strong class="block text-slate-900">Weekly Office Hours</strong>
+                            <span class="text-sm text-slate-600 block">Mon & Wed: 10:00 AM – 12:30 PM</span>
+                            <span class="text-sm text-slate-600 block">Tue & Thu: 1:30 PM – 3:00 PM</span>
+                            <span class="text-sm text-slate-500 italic block mt-1">(Other hours available via Zoom by appointment)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Custom Form / Interactive feedback -->
+            <div class="lg:col-span-7 bg-white p-8 rounded-2xl shadow-md border border-slate-100">
+                <h3 class="text-2xl font-bold font-serif-academic text-slate-900 mb-2">Send a Message</h3>
+                <p class="text-sm text-slate-500 mb-6">Current students: please specify your Course Code when submitting questions.</p>
+                
+                <form id="contact-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label for="student-name" class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Your Name</label>
+                            <input type="text" id="student-name" required class="w-full px-4 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent text-sm transition">
+                        </div>
+                        <div>
+                            <label for="student-email" class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Your Email</label>
+                            <input type="email" id="student-email" required class="w-full px-4 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent text-sm transition">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="course-ref" class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Subject / Course Reference</label>
+                        <select id="course-ref" class="w-full px-4 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent text-sm transition text-slate-600 bg-white">
+                            <option value="none">General Academic Inquiry</option>
+                            <option value="BMGT1327">BMGT 1327: Principles of Management</option>
+                            <option value="HRPO2301">HRPO 2301: Human Resources Management</option>
+                            <option value="BMGT2309">BMGT 2309: Leadership & Dynamics</option>
+                            <option value="advising">Advising / Recommendation Request</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="student-message" class="block text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">Your Message</label>
+                        <textarea id="student-message" rows="4" required class="w-full px-4 py-3 rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent text-sm transition"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="w-full py-3 px-6 rounded-lg bg-slate-900 text-white font-semibold text-sm hover:bg-brand-navy transition duration-150">
+                        Submit Message
+                    </button>
+                </form>
+
+                <!-- Feedback Success Box (Initially Hidden) -->
+                <div id="form-feedback" class="hidden mt-4 p-4 bg-emerald-50 border border-emerald-200 rounded-lg text-emerald-800 text-sm">
+                    <strong class="block mb-1">Thank you, <span id="feedback-sender"></span>!</strong>
+                    Your message regarding <span id="feedback-subject"></span> has been captured. Dr. Taylor usually responds to inquiries within 24–48 hours on business days.
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brand-navy text-slate-400 py-12 mt-auto border-t border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left space-y-8 sm:space-y-0 sm:flex sm:items-center sm:justify-between">
+            <div class="space-y-2">
+                <p class="text-white font-bold font-serif-academic text-lg">Dr. Staci Taylor</p>
+                <p class="text-xs text-slate-400">Management Instructor • McLennan Community College</p>
+            </div>
+            <div class="space-y-2 text-xs text-center sm:text-right">
+                <p>© 2026 Dr. Staci Taylor. All Rights Reserved.</p>
+                <p class="text-slate-500">Designed for Educational Excellence at MCC Waco, Texas.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Interactions -->
+    <script>
+        // Quotes Array
+        const quotes = [
+            {
+                text: "Management is doing things right; leadership is doing the right things.",
+                author: "Peter F. Drucker"
+            },
+            {
+                text: "Good management is the art of making problems so interesting and their solutions so constructive that everyone wants to get to work and deal with them.",
+                author: "Paul Hawken"
+            },
+            {
+                text: "The best executive is the one who has sense enough to pick good men to do what he wants done, and self-restraint to keep from meddling with them while they do it.",
+                author: "Theodore Roosevelt"
+            },
+            {
+                text: "Operations keeps the lights on, strategy decides where the spotlight shines, and management makes sure the performance actually goes well.",
+                author: "Business Wisdom"
+            },
+            {
+                text: "Unity is strength... when there is teamwork and collaboration, wonderful things can be achieved.",
+                author: "Mattie Stepanek"
+            }
+        ];
+
+        let quoteIndex = 0;
+
+        function changeQuote() {
+            quoteIndex = (quoteIndex + 1) % quotes.length;
+            const quoteTextEl = document.getElementById('quote-text');
+            const quoteAuthorEl = document.getElementById('quote-author');
+            
+            // Brief fade effect
+            quoteTextEl.style.opacity = 0;
+            quoteAuthorEl.style.opacity = 0;
+            
+            setTimeout(() => {
+                quoteTextEl.innerText = `"${quotes[quoteIndex].text}"`;
+                quoteAuthorEl.innerText = `— ${quotes[quoteIndex].author}`;
+                quoteTextEl.style.opacity = 1;
+                quoteAuthorEl.style.opacity = 1;
+            }, 200);
+        }
+
+        // Mobile Menu toggle
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            if (mobileMenu.classList.contains('hidden')) {
+                // Hamburger icon
+                menuIcon.setAttribute('d', 'M4 6h16M4 12h16M4 18h16');
+            } else {
+                // Cross icon
+                menuIcon.setAttribute('d', 'M6 18L18 6M6 6l12 12');
+            }
+        });
+
+        // Contact Form Handler
+        function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('student-name').value;
+            const selectEl = document.getElementById('course-ref');
+            const subject = selectEl.options[selectEl.selectedIndex].text;
+            
+            // Display Custom Success Message instead of an alert window
+            const feedbackBox = document.getElementById('form-feedback');
+            document.getElementById('feedback-sender').innerText = name;
+            document.getElementById('feedback-subject').innerText = `"${subject}"`;
+            
+            feedbackBox.classList.remove('hidden');
+            
+            // Clear Form Inputs
+            document.getElementById('contact-form').reset();
+            
+            // Scroll to feedback gently
+            feedbackBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    </script>
+</body>
+</html>
