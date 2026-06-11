@@ -1,1215 +1,793 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POLC Management Mastery - Interactive Lesson</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
-        .serif-title {
-            font-family: 'Playfair Display', serif;
-        }
-        .perspective {
-            perspective: 1000px;
-        }
-        .flip-card-inner {
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-        }
-        .flip-card-flipped {
-            transform: rotateY(180deg);
-        }
-        .flip-card-front, .flip-card-back {
-            backface-visibility: hidden;
-        }
-        .flip-card-back {
-            transform: rotateY(180deg);
-        }
-        /* Glassmorphism details */
-        .glass {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Four Principles of Management | Interactive Lesson</title>
+  <style>
+    :root {
+      --navy: #16324f;
+      --blue: #2f6f9f;
+      --sky: #d9ecf7;
+      --gold: #f4b942;
+      --green: #2f8f6b;
+      --red: #bf4b4b;
+      --ink: #1f2933;
+      --muted: #62748a;
+      --paper: #ffffff;
+      --soft: #f4f7fb;
+      --shadow: 0 12px 28px rgba(22,50,79,.14);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #eef6fb 0%, #f9fbfd 50%, #fff7e2 100%);
+      color: var(--ink);
+      line-height: 1.55;
+    }
+
+    header {
+      background: radial-gradient(circle at top left, #3a7ca5, var(--navy));
+      color: white;
+      padding: 34px 22px 26px;
+      position: relative;
+      overflow: hidden;
+    }
+    header::after {
+      content: "";
+      position: absolute;
+      width: 360px;
+      height: 360px;
+      right: -140px;
+      top: -150px;
+      background: rgba(255,255,255,.12);
+      border-radius: 50%;
+    }
+    .wrap { max-width: 1120px; margin: 0 auto; }
+    .hero {
+      display: grid;
+      grid-template-columns: 1.3fr .7fr;
+      gap: 24px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    h1 { font-size: clamp(2rem, 4vw, 3.65rem); line-height: 1.05; margin: 0 0 12px; }
+    .subtitle { font-size: 1.12rem; max-width: 760px; opacity: .95; }
+    .hero-card {
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: var(--radius);
+      padding: 20px;
+      backdrop-filter: blur(10px);
+    }
+    .hero-card strong { color: #fff4c2; }
+
+    nav {
+      background: rgba(255,255,255,.95);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      border-bottom: 1px solid #d9e3ee;
+      box-shadow: 0 2px 14px rgba(22,50,79,.06);
+    }
+    nav .wrap {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 10px 16px;
+    }
+    nav a {
+      color: var(--navy);
+      text-decoration: none;
+      border: 1px solid #d8e4ef;
+      padding: 8px 12px;
+      border-radius: 999px;
+      white-space: nowrap;
+      font-weight: 700;
+      font-size: .92rem;
+      background: white;
+    }
+    nav a:hover, nav a:focus { background: var(--sky); outline: none; }
+
+    main { padding: 28px 18px 60px; }
+    section {
+      max-width: 1120px;
+      margin: 0 auto 26px;
+      background: rgba(255,255,255,.88);
+      border: 1px solid #dde8f2;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+    h2 { color: var(--navy); margin: 0 0 10px; font-size: 1.75rem; }
+    h3 { color: #204f73; margin-top: 22px; }
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: #fff2c7;
+      color: #6c4a00;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: .82rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      margin-bottom: 8px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .card {
+      background: white;
+      border: 1px solid #dbe7f1;
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 8px 16px rgba(31,41,51,.06);
+    }
+    .principle {
+      cursor: pointer;
+      transition: transform .16s, box-shadow .16s, border-color .16s;
+      min-height: 210px;
+    }
+    .principle:hover, .principle:focus-within {
+      transform: translateY(-4px);
+      border-color: var(--blue);
+      box-shadow: 0 12px 22px rgba(47,111,159,.18);
+    }
+    .icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 15px;
+      display: grid;
+      place-items: center;
+      background: var(--sky);
+      font-size: 1.6rem;
+      margin-bottom: 10px;
+    }
+    .principle h3 { margin: 0 0 8px; color: var(--navy); }
+    .mini { color: var(--muted); font-size: .95rem; }
+    .hidden-detail { display: none; margin-top: 10px; border-top: 1px dashed #cad8e5; padding-top: 10px; }
+    .principle.active .hidden-detail { display: block; }
+
+    .progress-wrap { background: #d7e3ee; border-radius: 999px; height: 15px; overflow: hidden; }
+    .progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, var(--green), var(--gold)); transition: width .3s; }
+    .progress-meta { display: flex; justify-content: space-between; gap: 10px; align-items: center; margin-top: 8px; color: var(--muted); font-size: .94rem; }
+
+    button, .btn {
+      appearance: none;
+      border: 0;
+      background: var(--blue);
+      color: white;
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform .12s, background .12s;
+    }
+    button:hover, .btn:hover { background: var(--navy); transform: translateY(-1px); }
+    button.secondary { background: #e8eff6; color: var(--navy); border: 1px solid #ccdceb; }
+    button.secondary:hover { background: #d9e8f5; }
+    .button-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+
+    .choice {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: #f7fafc;
+      border: 2px solid #d9e4ee;
+      color: var(--ink);
+      padding: 12px;
+      border-radius: 14px;
+      margin: 9px 0;
+      font-weight: 700;
+    }
+    .choice:hover { background: #edf6fc; border-color: var(--blue); color: var(--ink); }
+    .choice.correct { border-color: var(--green); background: #e9f8f1; }
+    .choice.incorrect { border-color: var(--red); background: #fff0f0; }
+    .feedback {
+      padding: 12px 14px;
+      border-radius: 14px;
+      margin-top: 12px;
+      background: #eef6fb;
+      border-left: 5px solid var(--blue);
+      display: none;
+    }
+    .feedback.show { display: block; }
+
+    .sort-grid { display: grid; grid-template-columns: repeat(4, minmax(170px, 1fr)); gap: 14px; margin-top: 16px; }
+    .bucket {
+      min-height: 230px;
+      border: 2px dashed #b7cadd;
+      border-radius: 16px;
+      padding: 12px;
+      background: #fbfdff;
+    }
+    .bucket h4 { margin: 0 0 10px; color: var(--navy); }
+    .item-pool { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0; }
+    .drag-item {
+      background: white;
+      border: 1px solid #cdddec;
+      box-shadow: 0 4px 10px rgba(31,41,51,.08);
+      border-radius: 12px;
+      padding: 10px 12px;
+      cursor: grab;
+      font-weight: 700;
+      max-width: 260px;
+    }
+    .drag-item:active { cursor: grabbing; }
+    .bucket.over { background: #eef8ff; border-color: var(--blue); }
+    .bucket .drag-item { margin-bottom: 9px; }
+
+    .scenario {
+      background: linear-gradient(135deg, #ffffff, #f4f9fd);
+      border: 1px solid #dbe7f1;
+      border-radius: 16px;
+      padding: 18px;
+    }
+    .pillbar { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 14px; }
+    .pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid #cdddec;
+      background: #fff;
+      cursor: pointer;
+      font-weight: 800;
+      color: var(--navy);
+    }
+    .pill.selected { background: var(--navy); color: white; border-color: var(--navy); }
+
+    textarea, input[type="text"] {
+      width: 100%;
+      border: 2px solid #cbd9e6;
+      border-radius: 14px;
+      padding: 12px;
+      font: inherit;
+      min-height: 92px;
+      background: #fcfeff;
+    }
+    input[type="text"] { min-height: auto; }
+    textarea:focus, input[type="text"]:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(47,111,159,.15); }
+
+    .blooms {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .bloom-step {
+      text-align: center;
+      background: #f5f8fb;
+      border: 1px solid #d7e3ef;
+      border-radius: 14px;
+      padding: 10px 8px;
+      font-weight: 800;
+      color: var(--navy);
+    }
+    .bloom-step small { display: block; color: var(--muted); font-weight: 700; margin-top: 2px; }
+
+    .badge {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 4px 9px;
+      background: #e9f8f1;
+      color: #196144;
+      font-weight: 800;
+      font-size: .8rem;
+      margin-right: 6px;
+    }
+    .callout {
+      background: #fff7df;
+      border: 1px solid #f2d68d;
+      border-radius: 16px;
+      padding: 14px;
+      margin: 14px 0;
+    }
+    .rubric table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+    .rubric th, .rubric td { border: 1px solid #d7e3ef; padding: 10px; text-align: left; vertical-align: top; }
+    .rubric th { background: #eef6fb; color: var(--navy); }
+
+    .completion {
+      display: none;
+      text-align: center;
+      background: linear-gradient(135deg, #eaf8f1, #fff7d9);
+      border-color: #c7e6d7;
+    }
+    .completion.show { display: block; }
+    footer { text-align: center; color: var(--muted); padding: 20px; font-size: .9rem; }
+
+    @media (max-width: 950px) {
+      .hero, .two { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: repeat(2, 1fr); }
+      .sort-grid { grid-template-columns: repeat(2, 1fr); }
+      .blooms { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 620px) {
+      section { padding: 18px; }
+      .grid, .sort-grid, .blooms { grid-template-columns: 1fr; }
+      nav .wrap { padding-left: 10px; }
+    }
+
+    @media print {
+      nav, button, .button-row { display: none !important; }
+      body { background: white; }
+      section { box-shadow: none; break-inside: avoid; }
+    }
+  </style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
-
-    <!-- TOP NAVIGATION & PROGRESS BAR -->
-    <header class="sticky top-0 z-50 glass shadow-sm border-b border-slate-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <div class="bg-indigo-600 text-white p-2 rounded-xl shadow-md shadow-indigo-100">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-                </div>
-                <div>
-                    <span class="text-xs font-bold uppercase tracking-wider text-indigo-600">Bus-101: Intro to Business</span>
-                    <h1 class="text-lg font-bold text-slate-900 leading-tight">POLC Management Principles</h1>
-                </div>
-            </div>
-            
-            <!-- Student Profile / Score Card -->
-            <div class="flex items-center space-x-4">
-                <div class="hidden md:flex flex-col text-right">
-                    <span class="text-xs text-slate-500 font-medium">Student Progress</span>
-                    <span id="score-display" class="text-sm font-bold text-slate-800">0 / 500 XP</span>
-                </div>
-                <div class="h-10 w-10 rounded-full bg-indigo-100 border-2 border-indigo-500 flex items-center justify-center text-indigo-700 font-bold" id="user-avatar">
-                    🎓
-                </div>
-            </div>
-        </div>
-
-        <!-- Bloom's Taxonomy Visual Indicator -->
-        <div class="w-full bg-slate-200 h-1.5 flex">
-            <div id="bloom-progress-1" class="h-full bg-rose-500 transition-all duration-500" style="width: 16.66%"></div>
-            <div id="bloom-progress-2" class="h-full bg-amber-500 transition-all duration-500" style="width: 0%"></div>
-            <div id="bloom-progress-3" class="h-full bg-emerald-500 transition-all duration-500" style="width: 0%"></div>
-            <div id="bloom-progress-4" class="h-full bg-cyan-500 transition-all duration-500" style="width: 0%"></div>
-            <div id="bloom-progress-5" class="h-full bg-blue-500 transition-all duration-500" style="width: 0%"></div>
-            <div id="bloom-progress-6" class="h-full bg-violet-500 transition-all duration-500" style="width: 0%"></div>
-        </div>
-
-        <!-- Taxonomy Labels bar -->
-        <div class="max-w-7xl mx-auto px-4 py-1.5 hidden sm:flex justify-between text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-            <span id="label-remember" class="text-rose-600 font-extrabold">1. Remember</span>
-            <span id="label-understand">2. Understand</span>
-            <span id="label-apply">3. Apply</span>
-            <span id="label-analyze">4. Analyze</span>
-            <span id="label-evaluate">5. Evaluate</span>
-            <span id="label-create">6. Create</span>
-        </div>
-    </header>
-
-    <!-- MAIN INTERACTIVE LAYOUT -->
-    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex flex-col lg:flex-row gap-8">
-        
-        <!-- PROFESSOR PETE SIDEBAR (Persistent Guide) -->
-        <aside class="w-full lg:w-80 flex-shrink-0">
-            <div class="glass rounded-3xl p-6 shadow-xl shadow-slate-100 border border-slate-200 sticky top-24">
-                <div class="flex items-center space-x-4 mb-4">
-                    <div class="relative">
-                        <div class="w-16 h-16 rounded-2xl bg-indigo-50 border-2 border-indigo-200 flex items-center justify-center text-4xl shadow-inner">
-                            👨‍🏫
-                        </div>
-                        <span class="absolute -bottom-1 -right-1 flex h-4 w-4">
-                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-4 w-4 bg-green-500 border border-white"></span>
-                        </span>
-                    </div>
-                    <div>
-                        <h3 class="font-bold text-slate-900">Professor Pete</h3>
-                        <p class="text-xs text-indigo-600 font-semibold">Your Mentor &amp; Guide</p>
-                    </div>
-                </div>
-
-                <div class="bg-indigo-50/50 rounded-2xl p-4 border border-indigo-100/80 mb-4">
-                    <p id="professor-bubble" class="text-sm text-slate-700 leading-relaxed italic">
-                        "Welcome to management, future leader! No dry textbooks here. We're going to build your leadership muscles block by block. Let's start with remembering the basic core pillars!"
-                    </p>
-                </div>
-
-                <!-- XP Gauge -->
-                <div class="space-y-2">
-                    <div class="flex justify-between text-xs font-semibold text-slate-600">
-                        <span>Current Lesson Level</span>
-                        <span id="current-badge-text" class="text-rose-600">Remembering</span>
-                    </div>
-                    <div class="w-full bg-slate-100 rounded-full h-3 overflow-hidden p-0.5 border border-slate-200">
-                        <div id="xp-gauge" class="bg-gradient-to-r from-indigo-500 to-indigo-600 h-full rounded-full transition-all duration-500" style="width: 5%"></div>
-                    </div>
-                </div>
-
-                <!-- Help Button -->
-                <button onclick="triggerProfTip()" class="mt-4 w-full py-2.5 bg-white hover:bg-slate-50 text-indigo-600 border border-indigo-100 hover:border-indigo-200 font-semibold rounded-xl text-xs transition duration-200 flex items-center justify-center space-x-2">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                    <span>Ask Prof. Pete for a Tip</span>
-                </button>
-            </div>
-        </aside>
-
-        <!-- LESSON CONTAINER -->
-        <section class="flex-grow flex flex-col justify-between glass rounded-3xl p-6 sm:p-8 shadow-xl shadow-slate-100 border border-slate-200 min-h-[550px]" id="stage-viewport">
-            
-            <!-- STAGE 1: REMEMBER (Cards & Terminology) -->
-            <div id="stage-1" class="stage-section flex-grow flex flex-col justify-between">
-                <div>
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-rose-50 text-rose-700 border border-rose-100 mb-4">
-                        Bloom's Level 1: Recall &amp; Define
-                    </span>
-                    <h2 class="serif-title text-2xl sm:text-3xl font-bold text-slate-900 mb-2">The Four Foundations: P-O-L-C</h2>
-                    <p class="text-slate-600 mb-8 max-w-2xl text-sm sm:text-base">
-                        Management isn't just bossing people around. Since 1916, we've broken it down into four repeatable actions. Click each card to reveal its real-world definition and visual symbol!
-                    </p>
-
-                    <!-- POLC Interactive Grid -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-                        <!-- Card 1: Planning -->
-                        <div class="perspective h-48 cursor-pointer" onclick="flipCard(this, 'Planning')">
-                            <div class="flip-card-inner relative w-full h-full duration-500 rounded-2xl shadow-sm hover:shadow-md border border-slate-200">
-                                <!-- Front -->
-                                <div class="flip-card-front absolute inset-0 bg-white rounded-2xl p-6 flex flex-col justify-between">
-                                    <div class="w-10 h-10 rounded-xl bg-rose-100 flex items-center justify-center text-rose-600 text-xl font-bold">P</div>
-                                    <div>
-                                        <h3 class="font-bold text-slate-800 text-lg">Planning</h3>
-                                        <p class="text-xs text-slate-400">Click to flip</p>
-                                    </div>
-                                </div>
-                                <!-- Back -->
-                                <div class="flip-card-back absolute inset-0 bg-rose-50 rounded-2xl p-6 flex flex-col justify-between border-2 border-rose-500">
-                                    <p class="text-xs text-rose-700 font-semibold uppercase tracking-wider">Defining the Future</p>
-                                    <p class="text-sm font-medium text-slate-800">Setting goals and mapping out exactly how to achieve them. The roadmap of leadership.</p>
-                                    <span class="text-2xl">🗺️</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 2: Organizing -->
-                        <div class="perspective h-48 cursor-pointer" onclick="flipCard(this, 'Organizing')">
-                            <div class="flip-card-inner relative w-full h-full duration-500 rounded-2xl shadow-sm hover:shadow-md border border-slate-200">
-                                <!-- Front -->
-                                <div class="flip-card-front absolute inset-0 bg-white rounded-2xl p-6 flex flex-col justify-between">
-                                    <div class="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center text-amber-600 text-xl font-bold">O</div>
-                                    <div>
-                                        <h3 class="font-bold text-slate-800 text-lg">Organizing</h3>
-                                        <p class="text-xs text-slate-400">Click to flip</p>
-                                    </div>
-                                </div>
-                                <!-- Back -->
-                                <div class="flip-card-back absolute inset-0 bg-amber-50 rounded-2xl p-6 flex flex-col justify-between border-2 border-amber-500">
-                                    <p class="text-xs text-amber-700 font-semibold uppercase tracking-wider">Structuring Work</p>
-                                    <p class="text-sm font-medium text-slate-800">Arranging resources, people, and tools to get the work done efficiently. Putting the puzzle together.</p>
-                                    <span class="text-2xl">🏗️</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 3: Leading -->
-                        <div class="perspective h-48 cursor-pointer" onclick="flipCard(this, 'Leading')">
-                            <div class="flip-card-inner relative w-full h-full duration-500 rounded-2xl shadow-sm hover:shadow-md border border-slate-200">
-                                <!-- Front -->
-                                <div class="flip-card-front absolute inset-0 bg-white rounded-2xl p-6 flex flex-col justify-between">
-                                    <div class="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-600 text-xl font-bold">L</div>
-                                    <div>
-                                        <h3 class="font-bold text-slate-800 text-lg">Leading</h3>
-                                        <p class="text-xs text-slate-400">Click to flip</p>
-                                    </div>
-                                </div>
-                                <!-- Back -->
-                                <div class="flip-card-back absolute inset-0 bg-emerald-50 rounded-2xl p-6 flex flex-col justify-between border-2 border-emerald-500">
-                                    <p class="text-xs text-emerald-700 font-semibold uppercase tracking-wider">Inspiring &amp; Directing</p>
-                                    <p class="text-sm font-medium text-slate-800">Motivating your team, building culture, and guiding human energy toward goals. The emotional spark.</p>
-                                    <span class="text-2xl">🔥</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Card 4: Controlling -->
-                        <div class="perspective h-48 cursor-pointer" onclick="flipCard(this, 'Controlling')">
-                            <div class="flip-card-inner relative w-full h-full duration-500 rounded-2xl shadow-sm hover:shadow-md border border-slate-200">
-                                <!-- Front -->
-                                <div class="flip-card-front absolute inset-0 bg-white rounded-2xl p-6 flex flex-col justify-between">
-                                    <div class="w-10 h-10 rounded-xl bg-cyan-100 flex items-center justify-center text-cyan-600 text-xl font-bold">C</div>
-                                    <div>
-                                        <h3 class="font-bold text-slate-800 text-lg">Controlling</h3>
-                                        <p class="text-xs text-slate-400">Click to flip</p>
-                                    </div>
-                                </div>
-                                <!-- Back -->
-                                <div class="flip-card-back absolute inset-0 bg-cyan-50 rounded-2xl p-6 flex flex-col justify-between border-2 border-cyan-500">
-                                    <p class="text-xs text-cyan-700 font-semibold uppercase tracking-wider">Monitoring &amp; Correcting</p>
-                                    <p class="text-sm font-medium text-slate-800">Measuring performance, comparing to plan, and making adjustments. Steering the ship.</p>
-                                    <span class="text-2xl">📊</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex items-center justify-between border-t border-slate-100 pt-6 mt-6">
-                    <span class="text-xs font-semibold text-slate-400" id="remember-progress">Flip all 4 cards to unlock the quiz!</span>
-                    <button id="stage-1-btn" disabled onclick="transitionStage(2)" class="px-6 py-3 bg-slate-200 text-slate-400 font-bold rounded-xl flex items-center space-x-2 transition cursor-not-allowed">
-                        <span>Check Understanding</span>
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </button>
-                </div>
-            </div>
-
-            <!-- STAGE 2: UNDERSTAND (Interactive Business Sandbox Simulation) -->
-            <div id="stage-2" class="stage-section hidden flex-grow flex flex-col justify-between">
-                <div>
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-amber-50 text-amber-700 border border-amber-100 mb-4">
-                        Bloom's Level 2: Explain &amp; Relate
-                    </span>
-                    <h2 class="serif-title text-2xl sm:text-3xl font-bold text-slate-900 mb-2">Startup Story: "Campus Crust" Pizza Truck</h2>
-                    <p class="text-slate-600 mb-6 text-sm">
-                        To truly understand, let's look at how we launch a late-night gourmet pizza truck for college students. Click on each manager duty to understand how they align with your new toolkit.
-                    </p>
-
-                    <!-- Interactive Business Duty Deck -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div class="space-y-3">
-                            <div onclick="selectDuty(0, 'planning')" id="duty-0" class="duty-item border border-slate-200 bg-white hover:bg-slate-50 p-4 rounded-xl cursor-pointer transition flex items-start space-x-3">
-                                <span class="text-2xl mt-0.5">🗓️</span>
-                                <div>
-                                    <h4 class="font-bold text-slate-800">Set the Menu &amp; Location Goal</h4>
-                                    <p class="text-xs text-slate-500">Decide to hit Campus Square from 10 PM to 2 AM and make $500 nightly.</p>
-                                </div>
-                            </div>
-                            <div onclick="selectDuty(1, 'organizing')" id="duty-1" class="duty-item border border-slate-200 bg-white hover:bg-slate-50 p-4 rounded-xl cursor-pointer transition flex items-start space-x-3">
-                                <span class="text-2xl mt-0.5">👨‍🍳</span>
-                                <div>
-                                    <h4 class="font-bold text-slate-800">Assign Slices &amp; Order Inventory</h4>
-                                    <p class="text-xs text-slate-500">Give Marcus pizza prep, line up cheese delivery, arrange food licenses.</p>
-                                </div>
-                            </div>
-                            <div onclick="selectDuty(2, 'leading')" id="duty-2" class="duty-item border border-slate-200 bg-white hover:bg-slate-50 p-4 rounded-xl cursor-pointer transition flex items-start space-x-3">
-                                <span class="text-2xl mt-0.5">⚡</span>
-                                <div>
-                                    <h4 class="font-bold text-slate-800">Pep-Talk the Team</h4>
-                                    <p class="text-xs text-slate-500">Motivate the crew, pay a bonus during exams, inspire high energy.</p>
-                                </div>
-                            </div>
-                            <div onclick="selectDuty(3, 'controlling')" id="duty-3" class="duty-item border border-slate-200 bg-white hover:bg-slate-50 p-4 rounded-xl cursor-pointer transition flex items-start space-x-3">
-                                <span class="text-2xl mt-0.5">📈</span>
-                                <div>
-                                    <h4 class="font-bold text-slate-800">Review Daily Yelp &amp; Financials</h4>
-                                    <p class="text-xs text-slate-500">Check if we hit $500, review customer reviews about soggy crusts.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Sandbox Analysis Center -->
-                        <div class="bg-slate-950 text-slate-300 rounded-2xl p-6 flex flex-col justify-between border border-slate-800 shadow-inner min-h-[250px]">
-                            <div id="duty-insight-box">
-                                <div class="flex items-center space-x-2 mb-3">
-                                    <div class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></div>
-                                    <span class="text-xs uppercase tracking-wider font-bold text-emerald-400">Awaiting Selection</span>
-                                </div>
-                                <p class="text-slate-400 text-sm leading-relaxed italic">
-                                    "Hey future CEO, click one of the duties on the left to analyze which POLC principle keeps the truck driving, and learn *why* the wheels would fall off without it!"
-                                </p>
-                            </div>
-                            <div class="pt-4 border-t border-slate-800 flex items-center justify-between text-xs">
-                                <span class="text-slate-500">Visual Blueprint: Pizza Truck Edition</span>
-                                <span id="duty-match-pill" class="px-2.5 py-1 rounded-full font-bold bg-slate-800 text-slate-400">---</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex items-center justify-between border-t border-slate-100 pt-6 mt-6">
-                    <button onclick="transitionStage(1)" class="px-4 py-2 border border-slate-200 hover:bg-slate-50 text-slate-600 font-bold rounded-xl transition flex items-center space-x-2 text-sm">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                        <span>Previous</span>
-                    </button>
-                    <span class="text-xs font-semibold text-slate-400" id="understand-progress">Click all four duties to learn more!</span>
-                    <button id="stage-2-btn" disabled onclick="transitionStage(3)" class="px-6 py-3 bg-slate-200 text-slate-400 font-bold rounded-xl flex items-center space-x-2 transition cursor-not-allowed">
-                        <span>Apply Your Knowledge</span>
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </button>
-                </div>
-            </div>
-
-            <!-- STAGE 3: APPLY (The Campus Concert Sorter) -->
-            <div id="stage-3" class="stage-section hidden flex-grow flex flex-col justify-between">
-                <div>
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-100 mb-4">
-                        Bloom's Level 3: Execution &amp; Practice
-                    </span>
-                    <h2 class="serif-title text-2xl sm:text-3xl font-bold text-slate-900 mb-2">Campus Concert Sorter</h2>
-                    <p class="text-slate-600 mb-6 text-sm">
-                        You're planning the upcoming Spring Campus Concert! Match the specific leadership task to the correct category below.
-                    </p>
-
-                    <!-- Draggable / Click-to-Sort Cards -->
-                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                        <!-- Left: Cards to Place -->
-                        <div class="space-y-3">
-                            <h3 class="text-xs uppercase font-extrabold text-slate-400 tracking-wider">Tasks to Assign</h3>
-                            <div id="sort-deck" class="space-y-2">
-                                <!-- Generated interactively below -->
-                            </div>
-                        </div>
-
-                        <!-- Right: Target Columns -->
-                        <div class="lg:col-span-2 grid grid-cols-2 gap-4">
-                            <!-- Planning Pool -->
-                            <div ondragover="allowDrop(event)" ondrop="dropTask(event, 'Planning')" onclick="clickTarget('Planning')" class="border-2 border-dashed border-rose-200 bg-rose-50/20 p-4 rounded-2xl min-h-[140px] flex flex-col justify-between transition-all hover:bg-rose-50/40">
-                                <div class="flex items-center justify-between">
-                                    <span class="text-xs font-bold uppercase text-rose-700 tracking-wider">Planning Target</span>
-                                    <span class="text-lg">🗺️</span>
-                                </div>
-                                <div class="space-y-2 py-2" id="pool-Planning"></div>
-                                <span class="text-[10px] text-rose-500 font-semibold italic text-center">Place goal-setting tasks here</span>
-                            </div>
-
-                            <!-- Organizing Pool -->
-                            <div ondragover="allowDrop(event)" ondrop="dropTask(event, 'Organizing')" onclick="clickTarget('Organizing')" class="border-2 border-dashed border-amber-200 bg-amber-50/20 p-4 rounded-2xl min-h-[140px] flex flex-col justify-between transition-all hover:bg-amber-50/40">
-                                <div class="flex items-center justify-between">
-                                    <span class="text-xs font-bold uppercase text-amber-700 tracking-wider">Organizing Target</span>
-                                    <span class="text-lg">🏗️</span>
-                                </div>
-                                <div class="space-y-2 py-2" id="pool-Organizing"></div>
-                                <span class="text-[10px] text-amber-500 font-semibold italic text-center">Place delegation &amp; structural tasks here</span>
-                            </div>
-
-                            <!-- Leading Pool -->
-                            <div ondragover="allowDrop(event)" ondrop="dropTask(event, 'Leading')" onclick="clickTarget('Leading')" class="border-2 border-dashed border-emerald-200 bg-emerald-50/20 p-4 rounded-2xl min-h-[140px] flex flex-col justify-between transition-all hover:bg-emerald-50/40">
-                                <div class="flex items-center justify-between">
-                                    <span class="text-xs font-bold uppercase text-emerald-700 tracking-wider">Leading Target</span>
-                                    <span class="text-lg">🔥</span>
-                                </div>
-                                <div class="space-y-2 py-2" id="pool-Leading"></div>
-                                <span class="text-[10px] text-emerald-500 font-semibold italic text-center">Place inspiration &amp; human-focused tasks</span>
-                            </div>
-
-                            <!-- Controlling Pool -->
-                            <div ondragover="allowDrop(event)" ondrop="dropTask(event, 'Controlling')" onclick="clickTarget('Controlling')" class="border-2 border-dashed border-cyan-200 bg-cyan-50/20 p-4 rounded-2xl min-h-[140px] flex flex-col justify-between transition-all hover:bg-cyan-50/40">
-                                <div class="flex items-center justify-between">
-                                    <span class="text-xs font-bold uppercase text-cyan-700 tracking-wider">Controlling Target</span>
-                                    <span class="text-lg">📊</span>
-                                </div>
-                                <div class="space-y-2 py-2" id="pool-Controlling"></div>
-                                <span class="text-[10px] text-cyan-500 font-semibold italic text-center">Place tracking &amp; audit tasks here</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex items-center justify-between border-t border-slate-100 pt-6 mt-6">
-                    <button onclick="transitionStage(2)" class="px-4 py-2 border border-slate-200 hover:bg-slate-50 text-slate-600 font-bold rounded-xl transition flex items-center space-x-2 text-sm">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                        <span>Previous</span>
-                    </button>
-                    <span class="text-xs font-semibold text-slate-400" id="apply-progress">Correctly place all 4 cards to unlock the next level!</span>
-                    <button id="stage-3-btn" disabled onclick="transitionStage(4)" class="px-6 py-3 bg-slate-200 text-slate-400 font-bold rounded-xl flex items-center space-x-2 transition cursor-not-allowed">
-                        <span>Analyze Cases</span>
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </button>
-                </div>
-            </div>
-
-            <!-- STAGE 4: ANALYZE (Case Diagnostic Clinic) -->
-            <div id="stage-4" class="stage-section hidden flex-grow flex flex-col justify-between">
-                <div>
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-cyan-50 text-cyan-700 border border-cyan-100 mb-4">
-                        Bloom's Level 4: Analyze Breakdowns
-                    </span>
-                    <h2 class="serif-title text-2xl sm:text-3xl font-bold text-slate-900 mb-2">The Case of the Chaotix Coffee Shop</h2>
-                    <p class="text-slate-600 mb-6 text-sm">
-                        Chaotix Coffee opened right next to campus, but it is currently bleeding money and customers. Below are diagnostic feedback cards from employees and bank accounts. Diagnose which POLC pillar has failed!
-                    </p>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <!-- Diagnostic Card 1 -->
-                        <div class="border border-slate-200 bg-white p-5 rounded-2xl flex flex-col justify-between shadow-sm">
-                            <div>
-                                <span class="text-2xl mb-2 block">💬</span>
-                                <h4 class="font-bold text-slate-800 text-sm">Sienna (Head Barista):</h4>
-                                <p class="text-xs text-slate-500 leading-relaxed italic mt-2">
-                                    "I literally have no idea who is supposed to wipe down the machine or balance the till. Nobody was assigned roles. We are tripping over each other!"
-                                </p>
-                            </div>
-                            <div class="mt-4 pt-4 border-t border-slate-100">
-                                <label class="block text-[10px] uppercase font-bold text-slate-400 mb-2">Identify the broken pillar:</label>
-                                <select onchange="checkDiagnostic(1, this.value)" class="w-full text-xs font-semibold bg-slate-50 border border-slate-200 rounded-lg p-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
-                                    <option value="">-- Choose Diagnosis --</option>
-                                    <option value="planning">Planning (Setting Goals)</option>
-                                    <option value="organizing">Organizing (Structuring Work)</option>
-                                    <option value="leading">Leading (Team Alignment)</option>
-                                    <option value="controlling">Controlling (Measurement)</option>
-                                </select>
-                                <p id="diag-feedback-1" class="text-[10px] mt-2 font-bold"></p>
-                            </div>
-                        </div>
-
-                        <!-- Diagnostic Card 2 -->
-                        <div class="border border-slate-200 bg-white p-5 rounded-2xl flex flex-col justify-between shadow-sm">
-                            <div>
-                                <span class="text-2xl mb-2 block">💸</span>
-                                <h4 class="font-bold text-slate-800 text-sm">Financial Statement Check:</h4>
-                                <p class="text-xs text-slate-500 leading-relaxed italic mt-2">
-                                    "The store spent $4,000 on luxury syrup without checking milk inventory budgets. Nobody checks if targets match actual costs."
-                                </p>
-                            </div>
-                            <div class="mt-4 pt-4 border-t border-slate-100">
-                                <label class="block text-[10px] uppercase font-bold text-slate-400 mb-2">Identify the broken pillar:</label>
-                                <select onchange="checkDiagnostic(2, this.value)" class="w-full text-xs font-semibold bg-slate-50 border border-slate-200 rounded-lg p-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
-                                    <option value="">-- Choose Diagnosis --</option>
-                                    <option value="planning">Planning (Setting Goals)</option>
-                                    <option value="organizing">Organizing (Structuring Work)</option>
-                                    <option value="leading">Leading (Team Alignment)</option>
-                                    <option value="controlling">Controlling (Measurement)</option>
-                                </select>
-                                <p id="diag-feedback-2" class="text-[10px] mt-2 font-bold"></p>
-                            </div>
-                        </div>
-
-                        <!-- Diagnostic Card 3 -->
-                        <div class="border border-slate-200 bg-white p-5 rounded-2xl flex flex-col justify-between shadow-sm">
-                            <div>
-                                <span class="text-2xl mb-2 block">📉</span>
-                                <h4 class="font-bold text-slate-800 text-sm">Core Strategy Statement:</h4>
-                                <p class="text-xs text-slate-500 leading-relaxed italic mt-2">
-                                    "We opened the shop doors but have zero concrete daily targets or business models. We are just winging it day by day!"
-                                </p>
-                            </div>
-                            <div class="mt-4 pt-4 border-t border-slate-100">
-                                <label class="block text-[10px] uppercase font-bold text-slate-400 mb-2">Identify the broken pillar:</label>
-                                <select onchange="checkDiagnostic(3, this.value)" class="w-full text-xs font-semibold bg-slate-50 border border-slate-200 rounded-lg p-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
-                                    <option value="">-- Choose Diagnosis --</option>
-                                    <option value="planning">Planning (Setting Goals)</option>
-                                    <option value="organizing">Organizing (Structuring Work)</option>
-                                    <option value="leading">Leading (Team Alignment)</option>
-                                    <option value="controlling">Controlling (Measurement)</option>
-                                </select>
-                                <p id="diag-feedback-3" class="text-[10px] mt-2 font-bold"></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex items-center justify-between border-t border-slate-100 pt-6 mt-6">
-                    <button onclick="transitionStage(3)" class="px-4 py-2 border border-slate-200 hover:bg-slate-50 text-slate-600 font-bold rounded-xl transition flex items-center space-x-2 text-sm">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                        <span>Previous</span>
-                    </button>
-                    <span class="text-xs font-semibold text-slate-400" id="analyze-progress">Identify the correct breakdowns to proceed!</span>
-                    <button id="stage-4-btn" disabled onclick="transitionStage(5)" class="px-6 py-3 bg-slate-200 text-slate-400 font-bold rounded-xl flex items-center space-x-2 transition cursor-not-allowed">
-                        <span>Evaluate Situations</span>
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </button>
-                </div>
-            </div>
-
-            <!-- STAGE 5: EVALUATE (The Manager's Hot Seat Simulator) -->
-            <div id="stage-5" class="stage-section hidden flex-grow flex flex-col justify-between">
-                <div>
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 text-blue-700 border border-blue-100 mb-4">
-                        Bloom's Level 5: Evaluate &amp; Defend Decisions
-                    </span>
-                    <h2 class="serif-title text-2xl sm:text-3xl font-bold text-slate-900 mb-2">The Manager's Hot Seat</h2>
-                    <p class="text-slate-600 mb-6 text-sm">
-                        You're in charge now. A crisis has struck! Analyze the scenario, make your decision, and justify your management style.
-                    </p>
-
-                    <!-- Scenario Deck -->
-                    <div class="bg-indigo-950 text-white p-6 rounded-2xl border border-indigo-900 shadow-md mb-6">
-                        <div class="flex items-center space-x-2 mb-3">
-                            <span class="text-xs uppercase font-extrabold text-indigo-400 tracking-wider">Active Leadership Scenario</span>
-                        </div>
-                        <h3 class="text-lg font-bold mb-2">Crisis: The Midterm Rush Mutiny</h3>
-                        <p class="text-sm text-slate-300 leading-relaxed">
-                            It's final exams week at the university. Your Pizza Truck is overwhelmed. Half your volunteer prep staff didn't show up, tickets are backed up by 45 minutes, and your remaining staff are close to walking off the job out of sheer exhaustion.
-                        </p>
-                    </div>
-
-                    <!-- Choices and Actions -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <!-- Option A -->
-                        <div onclick="selectHotSeatOption('A')" id="option-A" class="border border-slate-200 bg-white hover:bg-slate-50 p-4 rounded-xl cursor-pointer transition flex items-start space-x-3">
-                            <div class="w-6 h-6 rounded-full bg-indigo-100 flex items-center justify-center text-xs font-bold text-indigo-700">A</div>
-                            <div>
-                                <h4 class="font-bold text-slate-800 text-sm">Focus on Leading</h4>
-                                <p class="text-xs text-slate-500 mt-1">Order everyone to stop cooking for 5 minutes. Gather the team in a circle, order them free energy drinks, deliver an inspiring rally cry, and promise a $50 cash bonus to anyone who makes it to 2 AM.</p>
-                            </div>
-                        </div>
-
-                        <!-- Option B -->
-                        <div onclick="selectHotSeatOption('B')" id="option-B" class="border border-slate-200 bg-white hover:bg-slate-50 p-4 rounded-xl cursor-pointer transition flex items-start space-x-3">
-                            <div class="w-6 h-6 rounded-full bg-indigo-100 flex items-center justify-center text-xs font-bold text-indigo-700">B</div>
-                            <div>
-                                <h4 class="font-bold text-slate-800 text-sm">Focus on Controlling</h4>
-                                <p class="text-xs text-slate-500 mt-1">Immediately freeze the order queue. Tally the remaining crusts and sauce, calculate exactly how many sales can be completed per minute, and strictly cut any customers past line spot #20.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Feedback Box -->
-                    <div id="hotseat-critique" class="hidden mt-6 bg-slate-50 border border-slate-200 rounded-2xl p-4">
-                        <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider mb-2">Pete's Strategic Review:</h4>
-                        <p id="hotseat-critique-text" class="text-sm text-slate-600 italic"></p>
-                    </div>
-                </div>
-
-                <div class="flex items-center justify-between border-t border-slate-100 pt-6 mt-6">
-                    <button onclick="transitionStage(4)" class="px-4 py-2 border border-slate-200 hover:bg-slate-50 text-slate-600 font-bold rounded-xl transition flex items-center space-x-2 text-sm">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                        <span>Previous</span>
-                    </button>
-                    <span class="text-xs font-semibold text-slate-400" id="evaluate-progress">Choose your strategy to unlock the peak level!</span>
-                    <button id="stage-5-btn" disabled onclick="transitionStage(6)" class="px-6 py-3 bg-slate-200 text-slate-400 font-bold rounded-xl flex items-center space-x-2 transition cursor-not-allowed">
-                        <span>Create Your Blueprint</span>
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </button>
-                </div>
-            </div>
-
-            <!-- STAGE 6: CREATE (AI-Powered Custom POLC Blueprint) -->
-            <div id="stage-6" class="stage-section hidden flex-grow flex flex-col justify-between">
-                <div>
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-violet-50 text-violet-700 border border-violet-100 mb-4">
-                        Bloom's Level 6: Synthesize &amp; Design
-                    </span>
-                    <h2 class="serif-title text-2xl sm:text-3xl font-bold text-slate-900 mb-2">Build Your Own Management Blueprint</h2>
-                    <p class="text-slate-600 mb-6 text-sm">
-                        You have unlocked the peak of Bloom's Taxonomy: **Creation**. Enter your own business idea (or select a pre-made template below), and we will automatically co-create a personalized POLC Blueprint!
-                    </p>
-
-                    <!-- User input for Blueprint -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="space-y-4">
-                            <div>
-                                <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Choose an Idea Template:</label>
-                                <div class="grid grid-cols-2 gap-2">
-                                    <button onclick="applyPreset('Gamer Lounge', 'A high-end social PC & console gaming lounge with snacks and bubble tea near campus.')" class="p-2 border border-slate-200 rounded-xl text-xs hover:bg-indigo-50 hover:border-indigo-200 font-semibold transition bg-white text-left">
-                                        🎮 Campus Gamer Lounge
-                                    </button>
-                                    <button onclick="applyPreset('Eco Laundromat', 'A sustainable, solar-powered laundry service with study stations and free organic coffee.')" class="p-2 border border-slate-200 rounded-xl text-xs hover:bg-indigo-50 hover:border-indigo-200 font-semibold transition bg-white text-left">
-                                        🌿 Eco Study Laundromat
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div>
-                                <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Or Describe Your Own Dream Project:</label>
-                                <textarea id="custom-biz-idea" rows="3" class="w-full text-sm border border-slate-200 rounded-xl p-3 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white placeholder:text-slate-400" placeholder="e.g., A customized vintage clothing thrift delivery service run through a mobile app..."></textarea>
-                            </div>
-
-                            <button onclick="generateAIBlueprint()" class="w-full py-3.5 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white font-bold rounded-xl shadow-lg shadow-indigo-100 transition duration-200 flex items-center justify-center space-x-2">
-                                <span class="text-lg">🤖</span>
-                                <span>Co-Create My POLC Blueprint</span>
-                            </button>
-                        </div>
-
-                        <!-- Co-Created Blueprint Result Output -->
-                        <div class="bg-slate-950 text-slate-300 rounded-2xl p-6 border border-slate-800 shadow-inner flex flex-col justify-between min-h-[300px]">
-                            <div class="overflow-y-auto max-h-[320px] pr-2 space-y-4" id="blueprint-result-box">
-                                <div class="flex items-center space-x-2 text-indigo-400">
-                                    <svg class="w-5 h-5 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
-                                    <span class="text-xs uppercase tracking-wider font-bold">Creative Workshop Blueprint</span>
-                                </div>
-                                <p class="text-slate-400 text-xs leading-relaxed italic">
-                                    "Your custom plan will render here. Choose a preset or type your own concept, then press the generate button to co-design your leadership path."
-                                </p>
-                            </div>
-                            <div class="pt-4 border-t border-slate-800 flex items-center justify-between text-xs mt-4">
-                                <span class="text-slate-500">Bloom's Peak Unlocked</span>
-                                <button onclick="downloadBlueprintText()" id="download-btn" disabled class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-lg transition flex items-center space-x-1 cursor-not-allowed">
-                                    <span>💾 Save Plan</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex items-center justify-between border-t border-slate-100 pt-6 mt-6">
-                    <button onclick="transitionStage(5)" class="px-4 py-2 border border-slate-200 hover:bg-slate-50 text-slate-600 font-bold rounded-xl transition flex items-center space-x-2 text-sm">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                        <span>Previous</span>
-                    </button>
-                    <span class="text-xs font-semibold text-emerald-600 flex items-center space-x-1">
-                        <span>🎉 Mastery Certificate Unlocked!</span>
-                    </span>
-                    <button onclick="showFinalCelebration()" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl flex items-center space-x-2 transition shadow-lg shadow-emerald-100">
-                        <span>Finish Class</span>
-                    </button>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- FOOTER / CREDIT -->
-    <footer class="bg-white border-t border-slate-200 py-6">
-        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-400 space-y-4 sm:space-y-0">
-            <p>Designed for Business-101 (Intro to Management) • Community College Excellence</p>
-            <p>© 2026 Professor Pete's Classroom. Built with Gemini AI.</p>
-        </div>
-    </footer>
-
-    <!-- SUCCESS / GRADUATION DIALOG (MODAL) -->
-    <div id="grad-modal" class="fixed inset-0 z-50 overflow-y-auto hidden flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
-        <div class="bg-white rounded-3xl p-8 max-w-lg w-full shadow-2xl border border-slate-100 text-center space-y-6 transform transition-all scale-95 duration-300">
-            <span class="text-6xl">🎓</span>
-            <h2 class="serif-title text-3xl font-extrabold text-slate-900">Course Completed!</h2>
-            <p class="text-slate-600 text-sm leading-relaxed">
-                Congratulations, leader! You have advanced through the 6 stages of Bloom's Taxonomy. You can now define, explain, apply, analyze, evaluate, and create frameworks using the **Four Principles of Management (POLC)**.
-            </p>
-            <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex flex-col space-y-2 text-left">
-                <div class="flex justify-between items-center border-b border-slate-200 pb-2">
-                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Student Name</span>
-                    <span class="text-xs font-bold text-indigo-600 uppercase tracking-wider">Class MVP</span>
-                </div>
-                <div class="flex justify-between items-center pt-2">
-                    <span class="text-sm font-extrabold text-slate-800">Intro to Management Student</span>
-                    <span class="text-sm font-extrabold text-emerald-600">500 / 500 XP</span>
-                </div>
-            </div>
-            <div class="flex space-x-3">
-                <button onclick="closeGradModal()" class="flex-1 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl transition text-sm">
-                    Review Classroom
-                </button>
-                <button onclick="restartLesson()" class="flex-1 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition text-sm shadow-lg shadow-indigo-100">
-                    Restart Course
-                </button>
-            </div>
-        </div>
+<body>
+  <header>
+    <div class="wrap hero">
+      <div>
+        <div class="kicker">Management 101 Interactive</div>
+        <h1>The Four Principles of Management</h1>
+        <p class="subtitle">A beginner-friendly, highly interactive lesson for incoming freshmen. Learn how managers plan, organize, lead, and control by making decisions in a realistic campus event scenario.</p>
+      </div>
+      <div class="hero-card" aria-label="Lesson overview">
+        <p><strong>Mission:</strong> You are the new student manager for a campus welcome event.</p>
+        <p><strong>Your job:</strong> Use the four principles to help the team succeed.</p>
+        <p><strong>Bloom's path:</strong> Remember → Understand → Apply → Analyze → Evaluate → Create.</p>
+      </div>
     </div>
+  </header>
 
-    <!-- MAIN JAVASCRIPT GAME/STATE LOGIC -->
-    <script>
-        // Gemni API Configuration
-        const apiKey = ""; // Environment handles the runtime key injection
+  <nav aria-label="Lesson navigation">
+    <div class="wrap">
+      <a href="#start">Start</a>
+      <a href="#principles">Explore</a>
+      <a href="#remember">Remember</a>
+      <a href="#understand">Understand</a>
+      <a href="#apply">Apply</a>
+      <a href="#analyze">Analyze</a>
+      <a href="#evaluate">Evaluate</a>
+      <a href="#create">Create</a>
+      <a href="#wrapup">Wrap-Up</a>
+    </div>
+  </nav>
 
-        // Game State Variables
-        let currentXP = 0;
-        const totalXP = 500;
-        let activeStage = 1;
+  <main>
+    <section id="start">
+      <h2>Start Here: What Do Managers Actually Do?</h2>
+      <p>Many students think a manager is simply “the boss.” In reality, managers help people and resources work together toward a goal. The four classic principles are:</p>
+      <div class="grid" role="list">
+        <div class="card"><span class="badge">1</span><strong>Planning</strong><br><span class="mini">Setting goals and deciding what needs to happen.</span></div>
+        <div class="card"><span class="badge">2</span><strong>Organizing</strong><br><span class="mini">Arranging people, tasks, time, and resources.</span></div>
+        <div class="card"><span class="badge">3</span><strong>Leading</strong><br><span class="mini">Motivating, communicating, coaching, and guiding people.</span></div>
+        <div class="card"><span class="badge">4</span><strong>Controlling</strong><br><span class="mini">Checking progress, comparing results to goals, and making adjustments.</span></div>
+      </div>
+      <div class="callout"><strong>Scenario for the whole lesson:</strong> Your class has been asked to run a Welcome Week booth. You need a plan, supplies, team roles, good communication, and a way to know if the booth was successful.</div>
+      <div class="progress-wrap" aria-label="Lesson progress"><div id="progressBar" class="progress-bar"></div></div>
+      <div class="progress-meta"><span id="progressText">Progress: 0 of 7 activities completed</span><span id="scoreText">Knowledge Check Score: 0</span></div>
+    </section>
 
-        // Stage Trackers
-        let cardsFlipped = { Planning: false, Organizing: false, Leading: false, Controlling: false };
-        let dutiesClicked = { planning: false, organizing: false, leading: false, controlling: false };
-        let sortingCorrectCount = 0;
-        let diagnosticsSolved = { 1: false, 2: false, 3: false };
-        let hotSeatSolved = false;
-        let blueprintText = "";
+    <section id="principles">
+      <h2>Explore: Click Each Principle</h2>
+      <p>Click each card to reveal what it means in plain language and how it appears in the Welcome Week booth scenario.</p>
+      <div class="grid">
+        <article class="card principle" tabindex="0" data-principle="planning">
+          <div class="icon">🗺️</div><h3>Planning</h3><p class="mini">Decide the destination before you start moving.</p>
+          <div class="hidden-detail"><strong>Student version:</strong> What are we trying to accomplish, and what steps will get us there?<br><br><strong>Booth example:</strong> Set a goal to collect 100 student sign-ups by Friday.</div>
+        </article>
+        <article class="card principle" tabindex="0" data-principle="organizing">
+          <div class="icon">🧩</div><h3>Organizing</h3><p class="mini">Put people and resources in the right places.</p>
+          <div class="hidden-detail"><strong>Student version:</strong> Who does what, when, and with what resources?<br><br><strong>Booth example:</strong> Assign one student to greeting, one to supplies, and one to tracking sign-ups.</div>
+        </article>
+        <article class="card principle" tabindex="0" data-principle="leading">
+          <div class="icon">📣</div><h3>Leading</h3><p class="mini">Help people want to do the work well.</p>
+          <div class="hidden-detail"><strong>Student version:</strong> How do we motivate, communicate, and solve people problems?<br><br><strong>Booth example:</strong> Encourage the team, explain expectations, and help a shy teammate feel comfortable greeting students.</div>
+        </article>
+        <article class="card principle" tabindex="0" data-principle="controlling">
+          <div class="icon">📊</div><h3>Controlling</h3><p class="mini">Measure progress and adjust when needed.</p>
+          <div class="hidden-detail"><strong>Student version:</strong> Are we on track? If not, what needs to change?<br><br><strong>Booth example:</strong> Check sign-up numbers each day and change the approach if students are walking past.</div>
+        </article>
+      </div>
+      <div class="button-row"><button onclick="completeActivity('explore')">I explored the four principles</button></div>
+    </section>
 
-        // Task sorting data (Stage 3)
-        const concertTasks = [
-            { id: 'task-1', name: "Set $5k ticket revenue targets", category: "Planning", desc: "Setting goals & targets" },
-            { id: 'task-2', name: "Assign VIP passes to Sarah", category: "Organizing", desc: "Assigning roles & resources" },
-            { id: 'task-3', name: "Give pep-talk to volunteers", category: "Leading", desc: "Inspire & align staff" },
-            { id: 'task-4', name: "Audit bar vs. wristband tallies", category: "Controlling", desc: "Monitor & adjust" }
-        ];
+    <section id="remember">
+      <div class="kicker">Bloom's Level: Remember</div>
+      <h2>Activity 1: Quick Knowledge Check</h2>
+      <p>Select the principle that best matches each definition. This checks whether you can recognize the basic terms.</p>
+      <div id="quiz"></div>
+      <div class="button-row"><button onclick="gradeQuiz()">Check My Answers</button><button class="secondary" onclick="resetQuiz()">Reset</button></div>
+      <div id="quizFeedback" class="feedback"></div>
+    </section>
 
-        // UI Setup on Window Load
-        window.onload = function () {
-            initializeConcertTasks();
-            updateUIVisuals();
-        };
+    <section id="understand">
+      <div class="kicker">Bloom's Level: Understand</div>
+      <h2>Activity 2: Sort the Management Actions</h2>
+      <p>Drag each action into the principle it best represents. On touch devices, tap an item, then tap a bucket.</p>
+      <div class="item-pool" id="itemPool"></div>
+      <div class="sort-grid">
+        <div class="bucket" data-bucket="Planning"><h4>Planning</h4></div>
+        <div class="bucket" data-bucket="Organizing"><h4>Organizing</h4></div>
+        <div class="bucket" data-bucket="Leading"><h4>Leading</h4></div>
+        <div class="bucket" data-bucket="Controlling"><h4>Controlling</h4></div>
+      </div>
+      <div class="button-row"><button onclick="checkSort()">Check Sort</button><button class="secondary" onclick="resetSort()">Reset Sort</button></div>
+      <div id="sortFeedback" class="feedback"></div>
+    </section>
 
-        // --- PROFESSOR DIALOGUE SYSTEM ---
-        const tips = {
-            1: "Management is an active science. Flip all four cards in front of you. Once you flip them over, we'll see if you can remember which one does what!",
-            2: "To understand a principle, think about how they interact! For example, Planning sets the track, while Organizing gathers the parts for the car. Click each duty!",
-            3: "Welcome to execution. Drag or click on a task on the left and assign it to its target pool on the right based on its core goal.",
-            4: "Breakdowns happen to every manager. Look closely at Sienna's feedback: 'roles are not assigned'. That points directly to which element?",
-            5: "In crises, a manager must choose their priority. Think about what is more fragile: your humans (Leading) or your logistics (Controlling)?",
-            6: "The peak of learning is creation. Co-create a POLC Management blueprint using our integrated AI tools!"
-        };
+    <section id="apply">
+      <div class="kicker">Bloom's Level: Apply</div>
+      <h2>Activity 3: Make a Manager Decision</h2>
+      <div class="scenario">
+        <p><strong>Situation:</strong> It is the first day of Welcome Week. Your booth has a table, flyers, candy, and three student volunteers. After one hour, only 8 students have stopped by. Your goal is 25 students by lunch.</p>
+        <p><strong>Question:</strong> What should you do first?</p>
+        <button class="choice" onclick="scenarioChoice(this, false)">Tell everyone to work harder but keep the same setup.</button>
+        <button class="choice" onclick="scenarioChoice(this, true)">Check what is not working, adjust the booth approach, and give each person a clear role.</button>
+        <button class="choice" onclick="scenarioChoice(this, false)">Quit the goal because the booth is probably not interesting enough.</button>
+        <button class="choice" onclick="scenarioChoice(this, false)">Spend the rest of the time making a perfect new flyer.</button>
+        <div id="scenarioFeedback" class="feedback"></div>
+      </div>
+    </section>
 
-        function triggerProfTip() {
-            const currentBubble = document.getElementById('professor-bubble');
-            currentBubble.classList.add('scale-95', 'opacity-0');
-            setTimeout(() => {
-                currentBubble.innerHTML = `"${tips[activeStage] || "Keep going, leader! You've got this."}"`;
-                currentBubble.classList.remove('scale-95', 'opacity-0');
-            }, 150);
+    <section id="analyze">
+      <div class="kicker">Bloom's Level: Analyze</div>
+      <h2>Activity 4: Diagnose the Problem</h2>
+      <p>Read each problem and choose which management principle is most missing. Then compare your reasoning with the explanation.</p>
+      <div class="two">
+        <div class="card">
+          <h3>Problem A</h3>
+          <p>The team has a goal, but no one knows who is supposed to bring supplies, greet students, or record sign-ups.</p>
+          <div class="pillbar" data-case="A">
+            <button class="pill" data-answer="Organizing">Planning</button>
+            <button class="pill" data-answer="Organizing">Organizing</button>
+            <button class="pill" data-answer="Organizing">Leading</button>
+            <button class="pill" data-answer="Organizing">Controlling</button>
+          </div>
+          <div class="feedback"></div>
+        </div>
+        <div class="card">
+          <h3>Problem B</h3>
+          <p>The team is friendly and organized, but no one checks whether student sign-ups are increasing during the week.</p>
+          <div class="pillbar" data-case="B">
+            <button class="pill" data-answer="Controlling">Planning</button>
+            <button class="pill" data-answer="Controlling">Organizing</button>
+            <button class="pill" data-answer="Controlling">Leading</button>
+            <button class="pill" data-answer="Controlling">Controlling</button>
+          </div>
+          <div class="feedback"></div>
+        </div>
+      </div>
+      <div class="button-row"><button onclick="checkAnalyze()">Check Diagnosis</button></div>
+    </section>
+
+    <section id="evaluate">
+      <div class="kicker">Bloom's Level: Evaluate</div>
+      <h2>Activity 5: Choose the Strongest Management Plan</h2>
+      <p>Evaluate the options below. Which plan uses all four principles most effectively?</p>
+      <div class="card">
+        <button class="choice" onclick="evalChoice(this, false)"><strong>Plan A:</strong> Create a fun booth theme and trust everyone to figure out the rest.</button>
+        <button class="choice" onclick="evalChoice(this, false)"><strong>Plan B:</strong> Assign everyone a task, but do not set a goal or measure results.</button>
+        <button class="choice" onclick="evalChoice(this, true)"><strong>Plan C:</strong> Set a sign-up goal, assign roles, encourage the team, and check numbers each day so adjustments can be made.</button>
+        <button class="choice" onclick="evalChoice(this, false)"><strong>Plan D:</strong> Focus only on counting sign-ups after the event ends.</button>
+        <div id="evalFeedback" class="feedback"></div>
+      </div>
+    </section>
+
+    <section id="create">
+      <div class="kicker">Bloom's Level: Create</div>
+      <h2>Activity 6: Build Your Own Mini Management Plan</h2>
+      <p>Now create a simple management plan for a class project, club event, sports team, work shift, or family activity. Use one sentence for each principle.</p>
+      <label for="studentGoal"><strong>My activity or goal:</strong></label>
+      <input id="studentGoal" type="text" placeholder="Example: Organize a study group before the first exam" />
+      <div class="two">
+        <div><label for="planText"><strong>Planning:</strong></label><textarea id="planText" placeholder="What is the goal? What steps need to happen?"></textarea></div>
+        <div><label for="organizeText"><strong>Organizing:</strong></label><textarea id="organizeText" placeholder="Who does what? What resources are needed?"></textarea></div>
+        <div><label for="leadText"><strong>Leading:</strong></label><textarea id="leadText" placeholder="How will you communicate, motivate, or support people?"></textarea></div>
+        <div><label for="controlText"><strong>Controlling:</strong></label><textarea id="controlText" placeholder="How will you check progress and adjust if needed?"></textarea></div>
+      </div>
+      <div class="button-row"><button onclick="reviewPlan()">Review My Plan</button><button class="secondary" onclick="downloadPlan()">Download My Plan</button></div>
+      <div id="planFeedback" class="feedback"></div>
+    </section>
+
+    <section id="wrapup" class="rubric">
+      <h2>Wrap-Up: What You Should Be Able to Do Now</h2>
+      <div class="blooms" aria-label="Bloom's taxonomy progression">
+        <div class="bloom-step">Remember<small>Define terms</small></div>
+        <div class="bloom-step">Understand<small>Classify actions</small></div>
+        <div class="bloom-step">Apply<small>Make decisions</small></div>
+        <div class="bloom-step">Analyze<small>Diagnose gaps</small></div>
+        <div class="bloom-step">Evaluate<small>Judge plans</small></div>
+        <div class="bloom-step">Create<small>Build a plan</small></div>
+      </div>
+      <h3>Exit Ticket</h3>
+      <p>Before leaving class, answer these aloud, on paper, or in your LMS discussion board:</p>
+      <ol>
+        <li>Which principle do you think students naturally use most often?</li>
+        <li>Which principle is easiest to forget?</li>
+        <li>How could using all four principles help you succeed in college?</li>
+      </ol>
+      <h3>Instructor Use: Simple Participation Rubric</h3>
+      <table>
+        <thead><tr><th>Criteria</th><th>Strong Evidence</th><th>Developing Evidence</th></tr></thead>
+        <tbody>
+          <tr><td>Identifies the principles</td><td>Correctly defines and recognizes all four principles.</td><td>Recognizes some principles but confuses at least one.</td></tr>
+          <tr><td>Applies concepts</td><td>Uses the principles to make appropriate decisions in the scenario.</td><td>Makes decisions but does not clearly connect them to principles.</td></tr>
+          <tr><td>Analyzes management gaps</td><td>Explains which principle is missing and why.</td><td>Chooses a principle but gives limited reasoning.</td></tr>
+          <tr><td>Creates a plan</td><td>Includes a clear goal, roles, communication/support, and progress check.</td><td>Includes some parts but misses one or more principles.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="completion" class="completion">
+      <h2>🎉 Management Mission Complete!</h2>
+      <p>You have practiced all four principles of management across multiple levels of thinking. Remember: strong managers do not just tell people what to do. They plan, organize, lead, and control so the team can succeed.</p>
+    </section>
+  </main>
+
+  <footer>Designed for a community college introductory management lesson. Self-contained HTML5 file with embedded CSS and JavaScript.</footer>
+
+  <script>
+    const completed = new Set();
+    let score = 0;
+    const totalActivities = 7;
+
+    function completeActivity(id) {
+      completed.add(id);
+      updateProgress();
+    }
+
+    function addScore(points) {
+      score += points;
+      document.getElementById('scoreText').textContent = `Knowledge Check Score: ${score}`;
+    }
+
+    function updateProgress() {
+      const percent = Math.min(100, Math.round((completed.size / totalActivities) * 100));
+      document.getElementById('progressBar').style.width = percent + '%';
+      document.getElementById('progressText').textContent = `Progress: ${completed.size} of ${totalActivities} activities completed`;
+      if (completed.size >= totalActivities) {
+        document.getElementById('completion').classList.add('show');
+      }
+    }
+
+    document.querySelectorAll('.principle').forEach(card => {
+      card.addEventListener('click', () => card.classList.toggle('active'));
+      card.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.classList.toggle('active');
         }
+      });
+    });
 
-        function updateProfSpeech(text) {
-            const currentBubble = document.getElementById('professor-bubble');
-            currentBubble.innerHTML = `"${text}"`;
+    const quizQuestions = [
+      { prompt: 'Setting a goal and deciding the steps to reach it is...', answer: 'Planning' },
+      { prompt: 'Assigning tasks and arranging resources is...', answer: 'Organizing' },
+      { prompt: 'Motivating, coaching, and communicating with people is...', answer: 'Leading' },
+      { prompt: 'Measuring progress and making corrections is...', answer: 'Controlling' }
+    ];
+    const options = ['Planning', 'Organizing', 'Leading', 'Controlling'];
+
+    function renderQuiz() {
+      const quiz = document.getElementById('quiz');
+      quiz.innerHTML = '';
+      quizQuestions.forEach((q, i) => {
+        const div = document.createElement('div');
+        div.className = 'card';
+        div.innerHTML = `<h3>Question ${i + 1}</h3><p>${q.prompt}</p>`;
+        options.forEach(opt => {
+          const label = document.createElement('label');
+          label.style.display = 'inline-block';
+          label.style.margin = '4px 10px 4px 0';
+          label.innerHTML = `<input type="radio" name="q${i}" value="${opt}"> ${opt}`;
+          div.appendChild(label);
+        });
+        quiz.appendChild(div);
+      });
+    }
+
+    function gradeQuiz() {
+      let correct = 0;
+      quizQuestions.forEach((q, i) => {
+        const selected = document.querySelector(`input[name="q${i}"]:checked`);
+        if (selected && selected.value === q.answer) correct++;
+      });
+      const fb = document.getElementById('quizFeedback');
+      fb.classList.add('show');
+      if (correct === quizQuestions.length) {
+        fb.innerHTML = `<strong>Excellent!</strong> You matched all four principles correctly.`;
+        completeActivity('remember');
+        if (!fb.dataset.scored) { addScore(4); fb.dataset.scored = 'true'; }
+      } else {
+        fb.innerHTML = `<strong>You got ${correct} of ${quizQuestions.length} correct.</strong> Review the four definitions above and try again.`;
+      }
+    }
+
+    function resetQuiz() {
+      document.querySelectorAll('#quiz input').forEach(i => i.checked = false);
+      const fb = document.getElementById('quizFeedback');
+      fb.classList.remove('show');
+      fb.innerHTML = '';
+    }
+
+    renderQuiz();
+
+    const sortItems = [
+      { text: 'Set a goal of 100 student sign-ups', answer: 'Planning' },
+      { text: 'Create a shift schedule for volunteers', answer: 'Organizing' },
+      { text: 'Encourage a nervous teammate before their shift', answer: 'Leading' },
+      { text: 'Check sign-up numbers at the end of each day', answer: 'Controlling' },
+      { text: 'Decide the booth purpose before buying supplies', answer: 'Planning' },
+      { text: 'Place flyers, candy, and forms on the table', answer: 'Organizing' },
+      { text: 'Explain expectations clearly to the team', answer: 'Leading' },
+      { text: 'Change the approach when students walk past', answer: 'Controlling' }
+    ];
+    let selectedItem = null;
+
+    function renderSort() {
+      const pool = document.getElementById('itemPool');
+      pool.innerHTML = '';
+      sortItems.forEach((item, index) => {
+        const chip = document.createElement('div');
+        chip.className = 'drag-item';
+        chip.draggable = true;
+        chip.textContent = item.text;
+        chip.dataset.answer = item.answer;
+        chip.id = 'drag-' + index;
+        chip.addEventListener('dragstart', e => e.dataTransfer.setData('text/plain', chip.id));
+        chip.addEventListener('click', () => {
+          document.querySelectorAll('.drag-item').forEach(el => el.style.outline = 'none');
+          selectedItem = chip;
+          chip.style.outline = '3px solid var(--gold)';
+        });
+        pool.appendChild(chip);
+      });
+      document.querySelectorAll('.bucket').forEach(bucket => {
+        bucket.querySelectorAll('.drag-item').forEach(el => el.remove());
+      });
+    }
+
+    document.querySelectorAll('.bucket').forEach(bucket => {
+      bucket.addEventListener('dragover', e => { e.preventDefault(); bucket.classList.add('over'); });
+      bucket.addEventListener('dragleave', () => bucket.classList.remove('over'));
+      bucket.addEventListener('drop', e => {
+        e.preventDefault();
+        bucket.classList.remove('over');
+        const id = e.dataTransfer.getData('text/plain');
+        const item = document.getElementById(id);
+        if (item) bucket.appendChild(item);
+      });
+      bucket.addEventListener('click', () => {
+        if (selectedItem) {
+          bucket.appendChild(selectedItem);
+          selectedItem.style.outline = 'none';
+          selectedItem = null;
         }
+      });
+    });
 
-        // --- STAGE 1: REMEMBER ---
-        function flipCard(element, type) {
-            const inner = element.querySelector('.flip-card-inner');
-            inner.classList.toggle('flip-card-flipped');
-            
-            if (!cardsFlipped[type]) {
-                cardsFlipped[type] = true;
-                currentXP += 25;
-                updateUIVisuals();
-                
-                // Track complete
-                const flippedKeys = Object.keys(cardsFlipped);
-                const allFlipped = flippedKeys.every(k => cardsFlipped[k]);
-                
-                if (allFlipped) {
-                    const btn = document.getElementById('stage-1-btn');
-                    btn.disabled = false;
-                    btn.classList.remove('bg-slate-200', 'text-slate-400', 'cursor-not-allowed');
-                    btn.classList.add('bg-indigo-600', 'hover:bg-indigo-700', 'text-white shadow-lg shadow-indigo-100');
-                    document.getElementById('remember-progress').innerText = "Perfect! Level 1 Complete. Click 'Check Understanding' to proceed!";
-                    document.getElementById('remember-progress').classList.remove('text-slate-400');
-                    document.getElementById('remember-progress').classList.add('text-emerald-600', 'font-bold animate-pulse');
-                    updateProfSpeech("Brilliant memory retention! You've unlocked understanding. Click that blue button to continue!");
-                } else {
-                    const remaining = flippedKeys.filter(k => !cardsFlipped[k]).length;
-                    document.getElementById('remember-progress').innerText = `Keep flipping! ${remaining} cards left to unlock the next level.`;
-                }
-            }
+    function checkSort() {
+      let correct = 0;
+      let placed = 0;
+      document.querySelectorAll('.bucket').forEach(bucket => {
+        const bucketName = bucket.dataset.bucket;
+        bucket.querySelectorAll('.drag-item').forEach(item => {
+          placed++;
+          if (item.dataset.answer === bucketName) correct++;
+        });
+      });
+      const fb = document.getElementById('sortFeedback');
+      fb.classList.add('show');
+      if (placed < sortItems.length) {
+        fb.innerHTML = `<strong>Keep going.</strong> You placed ${placed} of ${sortItems.length} actions.`;
+      } else if (correct === sortItems.length) {
+        fb.innerHTML = `<strong>Great sorting!</strong> You correctly connected actions to the management principles.`;
+        completeActivity('understand');
+        if (!fb.dataset.scored) { addScore(4); fb.dataset.scored = 'true'; }
+      } else {
+        fb.innerHTML = `<strong>You sorted ${correct} of ${sortItems.length} correctly.</strong> Hint: controlling usually involves measuring, checking, or adjusting.`;
+      }
+    }
+
+    function resetSort() {
+      renderSort();
+      const fb = document.getElementById('sortFeedback');
+      fb.classList.remove('show');
+      fb.innerHTML = '';
+    }
+    renderSort();
+
+    function scenarioChoice(btn, correct) {
+      document.querySelectorAll('#apply .choice').forEach(b => b.classList.remove('correct','incorrect'));
+      btn.classList.add(correct ? 'correct' : 'incorrect');
+      const fb = document.getElementById('scenarioFeedback');
+      fb.classList.add('show');
+      if (correct) {
+        fb.innerHTML = `<strong>Correct.</strong> A strong manager combines controlling, organizing, and leading: check the current results, adjust the work, and clarify roles.`;
+        completeActivity('apply');
+        if (!fb.dataset.scored) { addScore(3); fb.dataset.scored = 'true'; }
+      } else {
+        fb.innerHTML = `<strong>Not the strongest option.</strong> Managers should avoid blaming, quitting, or focusing on only one small task when the whole process needs adjustment.`;
+      }
+    }
+
+    document.querySelectorAll('.pillbar .pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        const bar = pill.closest('.pillbar');
+        bar.querySelectorAll('.pill').forEach(p => p.classList.remove('selected'));
+        pill.classList.add('selected');
+      });
+    });
+
+    function checkAnalyze() {
+      let correct = 0;
+      document.querySelectorAll('.pillbar').forEach(bar => {
+        const selected = bar.querySelector('.pill.selected');
+        const fb = bar.parentElement.querySelector('.feedback');
+        fb.classList.add('show');
+        if (!selected) {
+          fb.innerHTML = 'Select one principle first.';
+          return;
         }
-
-        // --- STAGE 2: UNDERSTAND ---
-        const dutyInsights = {
-            planning: {
-                title: "Planning Breakdown",
-                text: "Without setting this $500 target, your team works aimlessly. You wouldn't know how much dough to buy, where to park, or if your startup is actually succeeding. Planning is the engine.",
-                pill: "Planning (P)"
-            },
-            organizing: {
-                title: "Organizing Breakdown",
-                text: "If Marcus prep-cooks pizza AND drives, while food licenses expire, chaos reigns. Organizing ensures all materials are in position and every worker has an explicit job.",
-                pill: "Organizing (O)"
-            },
-            leading: {
-                title: "Leading Breakdown",
-                text: "Soggy food can be fixed, but a burnt-out workforce is irreversible. In management, your people are your greatest asset. Inspiring them makes them champion your brand.",
-                pill: "Leading (L)"
-            },
-            controlling: {
-                title: "Controlling Breakdown",
-                text: "Yelp reports say your crust is soggy. If you do not audit and adjust your temperature based on this control loop, you will go bankrupt within three months.",
-                pill: "Controlling (C)"
-            }
-        };
-
-        function selectDuty(index, type) {
-            // Highlight selected duty item
-            document.querySelectorAll('.duty-item').forEach(el => el.classList.remove('border-indigo-500', 'bg-indigo-50/50'));
-            const selectedItem = document.getElementById(`duty-${index}`);
-            selectedItem.classList.add('border-indigo-500', 'bg-indigo-50/50');
-
-            // Render details in workspace
-            const insightBox = document.getElementById('duty-insight-box');
-            insightBox.innerHTML = `
-                <div class="flex items-center space-x-2 mb-3">
-                    <div class="h-2 w-2 rounded-full bg-indigo-400"></div>
-                    <span class="text-xs uppercase tracking-wider font-bold text-indigo-400">${dutyInsights[type].title}</span>
-                </div>
-                <p class="text-slate-300 text-sm leading-relaxed">${dutyInsights[type].text}</p>
-            `;
-            document.getElementById('duty-match-pill').innerText = dutyInsights[type].pill;
-
-            if (!dutiesClicked[type]) {
-                dutiesClicked[type] = true;
-                currentXP += 25;
-                updateUIVisuals();
-
-                const allClicked = Object.keys(dutiesClicked).every(k => dutiesClicked[k]);
-                if (allClicked) {
-                    const btn = document.getElementById('stage-2-btn');
-                    btn.disabled = false;
-                    btn.classList.remove('bg-slate-200', 'text-slate-400', 'cursor-not-allowed');
-                    btn.classList.add('bg-indigo-600', 'hover:bg-indigo-700', 'text-white shadow-lg shadow-indigo-100');
-                    document.getElementById('understand-progress').innerText = "Excellent! You understand. Click 'Apply Your Knowledge'!";
-                    document.getElementById('understand-progress').classList.remove('text-slate-400');
-                    document.getElementById('understand-progress').classList.add('text-emerald-600', 'font-bold animate-pulse');
-                    updateProfSpeech("You've unlocked the real power of connecting concepts. Let's see if you can execute these on a real event!");
-                } else {
-                    const remaining = Object.keys(dutiesClicked).filter(k => !dutiesClicked[k]).length;
-                    document.getElementById('understand-progress').innerText = `Great! Discover ${remaining} more duties to unlock stage 3.`;
-                }
-            }
+        const correctAnswer = selected.dataset.answer;
+        if (selected.textContent === correctAnswer) {
+          correct++;
+          fb.innerHTML = `<strong>Correct.</strong> This problem is mainly about ${correctAnswer}.`;
+        } else {
+          fb.innerHTML = `<strong>Try again.</strong> You selected ${selected.textContent}, but the biggest missing principle is ${correctAnswer}.`;
         }
+      });
+      if (correct === 2) {
+        completeActivity('analyze');
+        addScoreOnce('analyzeScore', 2);
+      }
+    }
 
-        // --- STAGE 3: APPLY ---
-        let selectedTaskToMove = null;
+    function addScoreOnce(key, points) {
+      if (!window[key]) {
+        addScore(points);
+        window[key] = true;
+      }
+    }
 
-        function initializeConcertTasks() {
-            const container = document.getElementById('sort-deck');
-            container.innerHTML = '';
-            
-            concertTasks.forEach(task => {
-                const card = document.createElement('div');
-                card.id = task.id;
-                card.draggable = true;
-                card.className = "p-3 border border-slate-200 bg-white hover:bg-slate-50 rounded-xl cursor-pointer shadow-sm transition-all duration-200 text-xs font-semibold text-slate-700 flex items-center justify-between";
-                card.innerHTML = `
-                    <span>${task.name}</span>
-                    <button class="text-indigo-600 font-bold px-1.5 py-0.5 bg-indigo-50 hover:bg-indigo-100 rounded text-[10px]" onclick="selectTaskDirect('${task.id}')">Select</button>
-                `;
-                
-                // Add desktop Drag events
-                card.ondragstart = (e) => {
-                    e.dataTransfer.setData("text", task.id);
-                };
+    function evalChoice(btn, correct) {
+      document.querySelectorAll('#evaluate .choice').forEach(b => b.classList.remove('correct','incorrect'));
+      btn.classList.add(correct ? 'correct' : 'incorrect');
+      const fb = document.getElementById('evalFeedback');
+      fb.classList.add('show');
+      if (correct) {
+        fb.innerHTML = `<strong>Best choice.</strong> Plan C is strongest because it includes all four principles: goal, roles/resources, people support, and measurement.`;
+        completeActivity('evaluate');
+        if (!fb.dataset.scored) { addScore(3); fb.dataset.scored = 'true'; }
+      } else {
+        fb.innerHTML = `<strong>Look for all four principles.</strong> The best plan should include planning, organizing, leading, and controlling, not just one or two.`;
+      }
+    }
 
-                container.appendChild(card);
-            });
-        }
+    function reviewPlan() {
+      const fields = ['studentGoal','planText','organizeText','leadText','controlText'];
+      const values = fields.map(id => document.getElementById(id).value.trim());
+      const fb = document.getElementById('planFeedback');
+      fb.classList.add('show');
+      const completeCount = values.filter(v => v.length >= 12).length;
+      if (completeCount === fields.length) {
+        fb.innerHTML = `<strong>Strong mini plan.</strong> You included a goal and addressed planning, organizing, leading, and controlling. This is how managers turn ideas into action.`;
+        completeActivity('create');
+        if (!fb.dataset.scored) { addScore(4); fb.dataset.scored = 'true'; }
+      } else {
+        fb.innerHTML = `<strong>Add a little more detail.</strong> Make sure you complete the goal and all four principle boxes with at least one clear sentence each.`;
+      }
+    }
 
-        function selectTaskDirect(id) {
-            selectedTaskToMove = id;
-            updateProfSpeech("Task selected! Now click on the matching target box above to place it.");
-            // Highlight targets to show they are receptive
-            document.querySelectorAll('[onclick^="clickTarget"]').forEach(el => {
-                el.classList.add('border-indigo-400', 'bg-indigo-50/10');
-            });
-        }
-
-        function clickTarget(poolName) {
-            if (!selectedTaskToMove) {
-                updateProfSpeech("Select a task from the deck first!");
-                return;
-            }
-            executeTaskMove(selectedTaskToMove, poolName);
-            selectedTaskToMove = null;
-            // Remove highlight
-            document.querySelectorAll('[onclick^="clickTarget"]').forEach(el => {
-                el.classList.remove('border-indigo-400', 'bg-indigo-50/10');
-            });
-        }
-
-        function allowDrop(ev) {
-            ev.preventDefault();
-        }
-
-        function dropTask(ev, poolName) {
-            ev.preventDefault();
-            const id = ev.dataTransfer.getData("text");
-            executeTaskMove(id, poolName);
-        }
-
-        function executeTaskMove(id, targetPool) {
-            const taskObj = concertTasks.find(t => t.id === id);
-            if (!taskObj) return;
-
-            if (taskObj.category === targetPool) {
-                // Correct match!
-                const pool = document.getElementById(`pool-${targetPool}`);
-                const element = document.getElementById(id);
-                element.draggable = false;
-                element.querySelector('button')?.remove(); // Remove selection button
-                element.className = "p-2 border border-emerald-200 bg-emerald-50 text-emerald-800 rounded-lg text-[11px] font-bold shadow-sm";
-                pool.appendChild(element);
-
-                sortingCorrectCount++;
-                currentXP += 25;
-                updateUIVisuals();
-
-                updateProfSpeech(`Excellent Match! '${taskObj.name}' is indeed a core element of ${targetPool}!`);
-
-                if (sortingCorrectCount === 4) {
-                    const btn = document.getElementById('stage-3-btn');
-                    btn.disabled = false;
-                    btn.classList.remove('bg-slate-200', 'text-slate-400', 'cursor-not-allowed');
-                    btn.classList.add('bg-indigo-600', 'hover:bg-indigo-700', 'text-white shadow-lg shadow-indigo-100');
-                    document.getElementById('apply-progress').innerText = "Incredible Job! All tasks matched correctly. Move on!";
-                    document.getElementById('apply-progress').classList.remove('text-slate-400');
-                    document.getElementById('apply-progress').classList.add('text-emerald-600', 'font-bold animate-pulse');
-                    updateProfSpeech("Sensational execution! Let's see if you can diagnose corporate failures at Chaotix Coffee.");
-                }
-            } else {
-                updateProfSpeech(`Whoops! '${taskObj.name}' doesn't quite fit in ${targetPool}. Think: ${taskObj.desc}. Try placing it somewhere else!`);
-            }
-        }
-
-        // --- STAGE 4: ANALYZE ---
-        const diagCorrectAnswers = {
-            1: "organizing",
-            2: "controlling",
-            3: "planning"
-        };
-
-        function checkDiagnostic(id, value) {
-            const feedback = document.getElementById(`diag-feedback-${id}`);
-            if (value === diagCorrectAnswers[id]) {
-                feedback.innerText = "✓ Diagnosis Correct!";
-                feedback.className = "text-[10px] mt-2 font-bold text-emerald-600";
-                
-                if (!diagnosticsSolved[id]) {
-                    diagnosticsSolved[id] = true;
-                    currentXP += 30;
-                    updateUIVisuals();
-                    
-                    const allDiagSolved = Object.keys(diagnosticsSolved).every(k => diagnosticsSolved[k]);
-                    if (allDiagSolved) {
-                        const btn = document.getElementById('stage-4-btn');
-                        btn.disabled = false;
-                        btn.classList.remove('bg-slate-200', 'text-slate-400', 'cursor-not-allowed');
-                        btn.classList.add('bg-indigo-600', 'hover:bg-indigo-700', 'text-white shadow-lg shadow-indigo-100');
-                        document.getElementById('analyze-progress').innerText = "Diagnostics Complete! Next level unlocked.";
-                        document.getElementById('analyze-progress').classList.remove('text-slate-400');
-                        document.getElementById('analyze-progress').classList.add('text-emerald-600', 'font-bold animate-pulse');
-                        updateProfSpeech("Excellent corporate diagnosis! You are thinking like a real management consultant. Let's head to the Hot Seat.");
-                    }
-                }
-            } else {
-                feedback.innerText = "✗ Incorrect Diagnosis. Re-analyze employee complaints.";
-                feedback.className = "text-[10px] mt-2 font-bold text-rose-500 animate-shake";
-            }
-        }
-
-        // --- STAGE 5: EVALUATE ---
-        function selectHotSeatOption(choice) {
-            document.querySelectorAll('[id^="option-"]').forEach(el => el.classList.remove('border-indigo-500', 'bg-indigo-50/50'));
-            document.getElementById(`option-${choice}`).classList.add('border-indigo-500', 'bg-indigo-50/50');
-
-            const critiqueBox = document.getElementById('hotseat-critique');
-            const critiqueText = document.getElementById('hotseat-critique-text');
-            critiqueBox.classList.remove('hidden');
-
-            if (choice === 'A') {
-                critiqueText.innerHTML = "<strong>Your Strategy (Leading Focus):</strong> Gathering the team & offering cash bonuses preserves morale and lines up emotional support. This keeps workers aligned but doesn't fix queue backups. Still, keeping employees happy prevents severe turnover during high-stress exam seasons!";
-            } else {
-                critiqueText.innerHTML = "<strong>Your Strategy (Controlling Focus):</strong> Freezing orders and auditing remaining crusts uses direct logistics to save the team from drowning. It prevents extreme wait times but might frustrate clients outside line #20. A pragmatic, logistics-first solution!";
-            }
-
-            if (!hotSeatSolved) {
-                hotSeatSolved = true;
-                currentXP += 50;
-                updateUIVisuals();
-
-                const btn = document.getElementById('stage-5-btn');
-                btn.disabled = false;
-                btn.classList.remove('bg-slate-200', 'text-slate-400', 'cursor-not-allowed');
-                btn.classList.add('bg-indigo-600', 'hover:bg-indigo-700', 'text-white shadow-lg shadow-indigo-100');
-                document.getElementById('evaluate-progress').innerText = "Decisions Made! Stage 5 Complete.";
-                document.getElementById('evaluate-progress').classList.remove('text-slate-400');
-                document.getElementById('evaluate-progress').classList.add('text-emerald-600', 'font-bold animate-pulse');
-                updateProfSpeech("Awesome evaluation and defense of your strategy. Now, let's step up to the mountaintop and CREATE your own management plan!");
-            }
-        }
-
-        // --- STAGE 6: CREATE (AI Generator) ---
-        function applyPreset(title, desc) {
-            document.getElementById('custom-biz-idea').value = `A business called "${title}": ${desc}`;
-        }
-
-        async function generateAIBlueprint() {
-            const userIdea = document.getElementById('custom-biz-idea').value.trim();
-            if (!userIdea) {
-                updateProfSpeech("Please enter your startup idea or select one of our templates before pressing generate!");
-                return;
-            }
-
-            const resultBox = document.getElementById('blueprint-result-box');
-            resultBox.innerHTML = `
-                <div class="flex items-center space-x-3 text-indigo-400">
-                    <svg class="animate-spin h-5 w-5 text-indigo-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                    <span class="text-xs uppercase font-extrabold text-indigo-400 animate-pulse">Professor Pete is writing your Blueprint...</span>
-                </div>
-            `;
-
-            const promptText = `Generate a customized and practical 4-principles of management (POLC) Blueprint for the following student startup idea: "${userIdea}".
-Format the response using clean, brief markdown with sections:
-1. PLANNING (Goal-setting)
-2. ORGANIZING (Team structure & assets)
-3. LEADING (Motivation & organizational culture)
-4. CONTROLLING (KPI monitoring & adjustments).
-Keep the tone energetic, encouraging, and clear for a student. Include specific actionable examples.`;
-
-            const systemPrompt = "You are Professor Pete, a friendly community college management professor. Help the student write a practical, simple 4-principles of management blueprint for their startup idea. Keep it highly practical, encouraging, and clear.";
-
-            try {
-                const response = await fetchWithRetry(
-                    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`,
-                    {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            contents: [{ parts: [{ text: promptText }] }],
-                            systemInstruction: { parts: [{ text: systemPrompt }] }
-                        })
-                    }
-                );
-
-                const text = response.candidates?.[0]?.content?.parts?.[0]?.text;
-                if (text) {
-                    blueprintText = text;
-                    resultBox.innerHTML = `
-                        <div class="text-xs space-y-2 leading-relaxed">
-                            ${formatMarkdown(text)}
-                        </div>
-                    `;
-                    
-                    // Enable save button
-                    const downloadBtn = document.getElementById('download-btn');
-                    downloadBtn.disabled = false;
-                    downloadBtn.classList.remove('bg-slate-800', 'text-slate-300', 'cursor-not-allowed');
-                    downloadBtn.classList.add('bg-indigo-600', 'hover:bg-indigo-700', 'text-white');
-
-                    // Reward remaining progress points
-                    if (currentXP < 500) {
-                        currentXP = 500;
-                        updateUIVisuals();
-                    }
-                    updateProfSpeech("Incredible! Look at that blueprint you created! You've got real management chops. Let's wrap up class.");
-                } else {
-                    throw new Error("Empty Response");
-                }
-            } catch (err) {
-                console.error(err);
-                // Simple high-quality backup local template in case of rate-limiting or network blockages
-                const fallbackText = `### MANAGEMENT BLUEPRINT (Local Backup)
-
-**1. PLANNING (Goal-Setting)**
-* Establish a solid timeline to open your idea: "${userIdea}" within the next 4 months.
-* Set initial performance targets: achieve break-even revenue within 90 days.
-
-**2. ORGANIZING (Structure & Resources)**
-* Create simple task protocols outlining exactly who handles production and who handles finances.
-* Set up standard tools and software systems to streamline order workflows.
-
-**3. LEADING (Morale & Motivation)**
-* Build a standard bi-weekly team meetup structure to discuss challenges openly.
-* Reward staff with milestone bonuses to drive enthusiasm and support.
-
-**4. CONTROLLING (Metrics & Audits)**
-* Track monthly expenditure spreadsheets against your planning budgets.
-* Run a feedback loop using weekly surveys to catch problems immediately.`;
-
-                blueprintText = fallbackText;
-                resultBox.innerHTML = `
-                    <div class="text-xs space-y-2 leading-relaxed">
-                        ${formatMarkdown(fallbackText)}
-                    </div>
-                `;
-                
-                const downloadBtn = document.getElementById('download-btn');
-                downloadBtn.disabled = false;
-                downloadBtn.classList.remove('bg-slate-800', 'text-slate-300', 'cursor-not-allowed');
-                downloadBtn.classList.add('bg-indigo-600', 'hover:bg-indigo-700', 'text-white');
-
-                if (currentXP < 500) {
-                    currentXP = 500;
-                    updateUIVisuals();
-                }
-                updateProfSpeech("I've written a robust strategic template for you! Let's click 'Finish Class' to finalize your coursework.");
-            }
-        }
-
-        async function fetchWithRetry(url, options, retries = 5, delay = 1000) {
-            for (let i = 0; i < retries; i++) {
-                try {
-                    const response = await fetch(url, options);
-                    if (response.ok) return await response.json();
-                } catch (e) {
-                    if (i === retries - 1) throw e;
-                }
-                await new Promise(res => setTimeout(res, delay));
-                delay *= 2;
-            }
-        }
-
-        function downloadBlueprintText() {
-            if (!blueprintText) return;
-            const element = document.createElement("a");
-            const file = new Blob([blueprintText], {type: 'text/plain'});
-            element.href = URL.createObjectURL(file);
-            element.download = "POLC_Management_Blueprint.txt";
-            document.body.appendChild(element);
-            element.click();
-            document.body.removeChild(element);
-        }
-
-        function formatMarkdown(text) {
-            return text
-                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                .replace(/### (.*?)\n/g, '<h3 class="text-sm font-extrabold text-indigo-400 mt-3 border-b border-slate-800 pb-1">$1</h3>')
-                .replace(/\* (.*?)\n/g, '<li class="list-disc ml-4 text-[11px]">$1</li>')
-                .replace(/\n/g, '<br>');
-        }
-
-        // --- STAGE TRANSITIONS & UI VISUALS ---
-        function transitionStage(newStage) {
-            document.querySelectorAll('.stage-section').forEach(section => {
-                section.classList.add('hidden');
-            });
-            document.getElementById(`stage-${newStage}`).classList.remove('hidden');
-            activeStage = newStage;
-
-            // Bloom Navigation Active Bar indicators Update
-            document.querySelectorAll('[id^="label-"]').forEach(el => {
-                el.classList.remove('text-rose-600', 'text-amber-600', 'text-emerald-600', 'text-cyan-600', 'text-blue-600', 'text-violet-600', 'font-extrabold');
-                el.classList.add('text-slate-400');
-            });
-
-            const levelConfig = {
-                1: { badge: "Remembering", colorClass: "text-rose-600", bgWidth: "16.66%", labelId: "label-remember" },
-                2: { badge: "Understanding", colorClass: "text-amber-600", bgWidth: "33.33%", labelId: "label-understand" },
-                3: { badge: "Applying", colorClass: "text-emerald-600", bgWidth: "50%", labelId: "label-apply" },
-                4: { badge: "Analyzing", colorClass: "text-cyan-600", bgWidth: "66.66%", labelId: "label-analyze" },
-                5: { badge: "Evaluating", colorClass: "text-blue-600", bgWidth: "83.33%", labelId: "label-evaluate" },
-                6: { badge: "Creating", colorClass: "text-violet-600", bgWidth: "100%", labelId: "label-create" }
-            };
-
-            const config = levelConfig[newStage];
-            const badgeText = document.getElementById('current-badge-text');
-            badgeText.innerText = config.badge;
-            badgeText.className = `text-xs font-bold ${config.colorClass}`;
-
-            // Update Progress Bar
-            for (let i = 1; i <= 6; i++) {
-                const progBar = document.getElementById(`bloom-progress-${i}`);
-                progBar.style.width = i <= newStage ? "16.66%" : "0%";
-            }
-
-            const label = document.getElementById(config.labelId);
-            label.className = `${config.colorClass} font-extrabold`;
-
-            triggerProfTip();
-        }
-
-        function updateUIVisuals() {
-            // Update Score Tracker text
-            document.getElementById('score-display').innerText = `${currentXP} / ${totalXP} XP`;
-            
-            // Calculate Gauge percentage
-            const pct = (currentXP / totalXP) * 100;
-            document.getElementById('xp-gauge').style.width = `${pct}%`;
-        }
-
-        function showFinalCelebration() {
-            const modal = document.getElementById('grad-modal');
-            modal.classList.remove('hidden');
-        }
-
-        function closeGradModal() {
-            document.getElementById('grad-modal').classList.add('hidden');
-        }
-
-        function restartLesson() {
-            closeGradModal();
-            // Reset all counters
-            currentXP = 0;
-            cardsFlipped = { Planning: false, Organizing: false, Leading: false, Controlling: false };
-            dutiesClicked = { planning: false, organizing: false, leading: false, controlling: false };
-            sortingCorrectCount = 0;
-            diagnosticsSolved = { 1: false, 2: false, 3: false };
-            hotSeatSolved = false;
-            blueprintText = "";
-
-            // Reset stage selections
-            document.querySelectorAll('select').forEach(sel => sel.value = "");
-            document.querySelectorAll('[id^="diag-feedback-"]').forEach(el => el.innerText = "");
-            document.getElementById('custom-biz-idea').value = "";
-            document.getElementById('blueprint-result-box').innerHTML = `
-                <div class="flex items-center space-x-2 text-indigo-400">
-                    <svg class="w-5 h-5 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
-                    <span class="text-xs uppercase tracking-wider font-bold">Creative Workshop Blueprint</span>
-                </div>
-                <p class="text-slate-400 text-xs leading-relaxed italic">
-                    "Your custom plan will render here. Choose a preset or type your own concept, then press the generate button to co-design your leadership path."
-                </p>
-            `;
-
-            // Disable buttons
-            ['stage-1-btn', 'stage-2-btn', 'stage-3-btn', 'stage-4-btn', 'stage-5-btn'].forEach(id => {
-                const btn = document.getElementById(id);
-                btn.disabled = true;
-                btn.className = "px-6 py-3 bg-slate-200 text-slate-400 font-bold rounded-xl flex items-center space-x-2 transition cursor-not-allowed";
-            });
-
-            // Re-setup elements
-            initializeConcertTasks();
-            updateUIVisuals();
-            transitionStage(1);
-        }
-    </script>
+    function downloadPlan() {
+      const content = `My Mini Management Plan\n\nActivity/Goal: ${document.getElementById('studentGoal').value}\n\nPlanning: ${document.getElementById('planText').value}\n\nOrganizing: ${document.getElementById('organizeText').value}\n\nLeading: ${document.getElementById('leadText').value}\n\nControlling: ${document.getElementById('controlText').value}\n`;
+      const blob = new Blob([content], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'my-management-plan.txt';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  </script>
 </body>
 </html>
